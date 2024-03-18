@@ -2,6 +2,7 @@ package com.vang.brandservice.command.event;
 
 import com.vang.brandservice.data.Brands;
 import com.vang.brandservice.data.BrandsRepository;
+import jakarta.transaction.Transactional;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ public class BrandEventsHandler {
     private BrandsRepository repository;
 
     @EventHandler
+    @Transactional
     public void handle(BrandCreatedEvent event) {
 
         Brands brands = new Brands();
         BeanUtils.copyProperties(event, brands);
+        brands.setBrandid(repository.generateId());
         repository.save(brands);
     }
 

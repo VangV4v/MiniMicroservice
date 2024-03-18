@@ -3,7 +3,6 @@ package com.vang.brandservice.command.controller;
 import com.vang.brandservice.command.model.BrandRequestModel;
 import com.vang.brandservice.command.service.BrandCommandService;
 import com.vang.brandservice.data.BrandsRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ public class BrandCommandController {
     private BrandsRepository repository;
 
     @PostMapping
-    @Transactional
     public ResponseEntity<String> addBrand(@RequestBody BrandRequestModel model) {
 
         return brandCommandService.addBrand(model);
