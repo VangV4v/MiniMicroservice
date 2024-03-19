@@ -4,11 +4,14 @@ import com.vang.customerservice.data.Customers;
 import com.vang.customerservice.data.CustomersRepository;
 import com.vang.customerservice.query.model.CustomerResponseModel;
 import com.vang.customerservice.query.queries.GetAllCustomers;
+import com.vang.customerservice.query.queries.GetByUserLogin;
 import com.vang.customerservice.query.queries.GetDetailCustomer;
+import jakarta.persistence.EntityNotFoundException;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,11 @@ public class CustomerQueryProjection {
 
         Customers customers = repository.findById(detailCustomer.getId()).get();
         CustomerResponseModel model = new CustomerResponseModel();
-        BeanUtils.copyProperties(customers, model);
+        if(ObjectUtils.isEmpty(customers)) {
+            model.initDefaultValue();
+        }else {
+            BeanUtils.copyProperties(customers, model);
+        }
         return model;
     }
 
@@ -39,6 +46,19 @@ public class CustomerQueryProjection {
             listModels.add(model);
         });
         return listModels;
+    }
+
+    @QueryHandler
+    public CustomerResponseModel getByKeyLogin(GetByUserLogin userLogin) {
+
+        Customers resultOfData = repository.findByLoginType(userLogin.getKey());
+        CustomerResponseModel model = new CustomerResponseModel();
+        if(ObjectUtils.isEmpty(resultOfData)) {
+            model.initDefaultValue();
+        }else {
+            BeanUtils.copyProperties(resultOfData, model);
+        }
+        return model;
     }
 
 }

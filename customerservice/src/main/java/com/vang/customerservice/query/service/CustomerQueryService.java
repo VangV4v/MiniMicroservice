@@ -10,4 +10,6 @@ public interface CustomerQueryService {
     ResponseEntity<CustomerResponseModel> getDetail(String id);
 
     ResponseEntity<List<CustomerResponseModel>> getAll();
+
+    ResponseEntity<CustomerResponseModel> getByKeyLogin(String key);
 }

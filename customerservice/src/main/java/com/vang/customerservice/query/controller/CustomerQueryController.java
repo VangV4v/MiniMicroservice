@@ -29,4 +29,10 @@ public class CustomerQueryController {
 
         return customerQueryService.getAll();
     }
+
+    @GetMapping("/auth/{key}")
+    public ResponseEntity<CustomerResponseModel> getByKeyLogin(@PathVariable("key") String key) {
+
+        return customerQueryService.getByKeyLogin(key);
+    }
 }
