@@ -28,7 +28,12 @@ public class CustomerQueryServiceImpl implements CustomerQueryService {
         GetDetailCustomer detailCustomer = new GetDetailCustomer();
         detailCustomer.setId(id);
         CustomerResponseModel model = queryGateway.query(detailCustomer, ResponseTypes.instanceOf(CustomerResponseModel.class)).join();
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        if(model.isDataStatus()) {
+            return new ResponseEntity<>(model, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(model, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @Override

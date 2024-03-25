@@ -7,6 +7,7 @@ import com.vang.customerservice.query.queries.GetAllCustomers;
 import com.vang.customerservice.query.queries.GetByUserLogin;
 import com.vang.customerservice.query.queries.GetDetailCustomer;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.commons.lang.StringUtils;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ public class CustomerQueryProjection {
     @QueryHandler
     public CustomerResponseModel getDetail(GetDetailCustomer detailCustomer) {
 
-        Customers customers = repository.findById(detailCustomer.getId()).get();
+        Customers customers = repository.findById(detailCustomer.getId()).orElse(new Customers());
         CustomerResponseModel model = new CustomerResponseModel();
-        if(ObjectUtils.isEmpty(customers)) {
+        if(StringUtils.isBlank(customers.getCustomerid())) {
             model.initDefaultValue();
         }else {
             BeanUtils.copyProperties(customers, model);
