@@ -22,6 +22,7 @@ public class CustomerGrpcClient {
         LoginReply reply = stub.login(LoginRequest.newBuilder()
                 .setUsername(username)
                 .build());
+        boolean s = reply.isInitialized();
         if(reply.getStatus()) {
 
             result.put(FieldNameCommon.STATUS,true);

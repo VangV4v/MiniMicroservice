@@ -12,11 +12,6 @@ public class CustomerserviceApplication {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		SpringApplication.run(CustomerserviceApplication.class, args);
-//		Server server = ServerBuilder.forPort(2009)
-//				.addService(new HelloServiceImpl()).build();
-//		server.start();
-//		server.awaitTermination();
-//
 	}
 
 }

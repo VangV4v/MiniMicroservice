@@ -25,7 +25,11 @@ public class BrandQueryServiceImpl implements BrandQueryService {
         GetDetailBrand detailBrand = new GetDetailBrand();
         detailBrand.setId(id);
         BrandResponseModel model = queryGateway.query(detailBrand, ResponseTypes.instanceOf(BrandResponseModel.class)).join();
-        return new ResponseEntity<>(model, HttpStatus.OK);
+        if(model.isDataStatus()) {
+            return new ResponseEntity<>(model, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(model, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

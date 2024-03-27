@@ -5,10 +5,12 @@ import com.vang.brandservice.data.BrandsRepository;
 import com.vang.brandservice.query.model.BrandResponseModel;
 import com.vang.brandservice.query.queries.GetAllBrands;
 import com.vang.brandservice.query.queries.GetDetailBrand;
+import org.apache.commons.lang.StringUtils;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,13 @@ public class BrandQueryProjection {
     @QueryHandler
     public BrandResponseModel getDetail(GetDetailBrand detailBrand) {
 
-        Brands brands = repository.findById(detailBrand.getId()).get();
+        Brands brands = repository.findById(detailBrand.getId()).orElse(new Brands());
         BrandResponseModel model = new BrandResponseModel();
-        BeanUtils.copyProperties(brands, model);
+        if(StringUtils.isBlank(brands.getBrandid())) {
+            model.initializeValue();
+        }else {
+            BeanUtils.copyProperties(brands, model);
+        }
         return model;
     }
 
