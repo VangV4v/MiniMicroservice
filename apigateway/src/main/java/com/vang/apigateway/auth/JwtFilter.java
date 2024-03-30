@@ -1,6 +1,7 @@
-package com.vang.apigateway.configuation;
+package com.vang.apigateway.auth;
 
-import org.apache.commons.lang.StringUtils;
+
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
+import org.vang.minimicroservice.common.AuthKey;
+import org.vang.minimicroservice.common.NumberUtils;
+import org.vang.minimicroservice.common.SecurityCommon;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -27,10 +31,11 @@ public class JwtFilter implements WebFilter {
         String token = getToken(exchange);
         if(!StringUtils.isBlank(token)) {
 
-            if(jwtService.isValidateToken(token)) {
+            if(jwtService.validateToken(token)) {
 
+                String role = jwtService.extractRole(token);
                 String username = jwtService.extractUsername(token);
-                List<GrantedAuthority> listGrant = List.of(new SimpleGrantedAuthority(jwtService.extractRole(token)));
+                List<GrantedAuthority> listGrant = List.of(new SimpleGrantedAuthority(SecurityCommon.ROLE_CUSTOMER));
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, listGrant);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authenticationToken));
@@ -41,11 +46,12 @@ public class JwtFilter implements WebFilter {
 
     private String getToken(ServerWebExchange exchange) {
 
-        String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
-        if(!StringUtils.isBlank(authHeader) && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            return token;
+        String token = null;
+        String authHeader = exchange.getRequest().getHeaders().getFirst(AuthKey.AUTHORIZATION);
+        if(!StringUtils.isBlank(authHeader) && authHeader.startsWith(AuthKey.BEARER)) {
+
+            token = authHeader.substring(NumberUtils.SEVEN);
         }
-        return null;
+        return token;
     }
 }

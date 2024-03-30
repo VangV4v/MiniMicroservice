@@ -1,10 +1,10 @@
-package com.vang.apigateway.configuation;
+package com.vang.apigateway.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.vang.minimicroservice.common.AuthKey;
 import org.vang.minimicroservice.service.FieldNameCommon;
 
@@ -12,12 +12,17 @@ import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@Service
+@Component
 public class JwtService {
 
-    public boolean isValidateToken(String token) {
+    public boolean validateToken(String token) {
 
         return extractClaim(token, Claims::getExpiration).after(new Date());
+    }
+
+    public String extractUsername(String token) {
+
+        return extractClaim(token, Claims::getSubject);
     }
 
     public String extractRole(String token) {
@@ -26,14 +31,10 @@ public class JwtService {
         return claims.get(FieldNameCommon.ROLE).toString();
     }
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    private <R> R extractClaim(String token, Function<Claims, R> claimsReturn) {
+    private <R> R extractClaim(String token, Function<Claims, R> claimReturn) {
 
         Claims claims = getClaim(token);
-        return claimsReturn.apply(claims);
+        return claimReturn.apply(claims);
     }
 
     private Claims getClaim(String token) {
@@ -50,5 +51,4 @@ public class JwtService {
 
         return Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(AuthKey.SECRET));
     }
-
 }
