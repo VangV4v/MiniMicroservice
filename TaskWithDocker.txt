@@ -1,0 +1,5 @@
+* ====> Waint
+// ===> Updated date
+-----------------------------------------------------------------------------
+Upload AuthCustomer to Docker //30/3/2024
+Upload BrandSerivce to Docker * Axonserver Connecttion //30/3/2024

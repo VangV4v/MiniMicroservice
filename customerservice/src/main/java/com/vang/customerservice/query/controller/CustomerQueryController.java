@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/api/v1/customers/")
 public class CustomerQueryController {
 
+    private final CustomerQueryService customerQueryService;
+
     @Autowired
-    private CustomerQueryService customerQueryService;
+    public CustomerQueryController(CustomerQueryService customerQueryService) {
+        this.customerQueryService = customerQueryService;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerResponseModel> getDetail(@PathVariable("id") String id) {

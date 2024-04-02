@@ -20,8 +20,12 @@ import java.util.Map;
 @Service
 public class MyUserdetailService implements UserDetailsService {
 
+    private final CustomerGrpcClient customerGrpcClient;
+
     @Autowired
-    private CustomerGrpcClient customerGrpcClient;
+    public MyUserdetailService(CustomerGrpcClient customerGrpcClient) {
+        this.customerGrpcClient = customerGrpcClient;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

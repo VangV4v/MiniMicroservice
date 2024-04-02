@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/brands/")
 public class BrandCommandController {
 
-    @Autowired
-    private BrandCommandService brandCommandService;
+    private final BrandCommandService brandCommandService;
 
     @Autowired
-    private BrandsRepository repository;
+    public BrandCommandController(BrandCommandService brandCommandService) {
+        this.brandCommandService = brandCommandService;
+    }
 
     @PostMapping
     public ResponseEntity<String> addBrand(@RequestBody BrandRequestModel model) {

@@ -1,0 +1,20 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_package = "com.vang.authadminservice.auth.grpc";
+option java_multiple_files = true;
+option java_outer_classname = "AdminGrpc";
+
+service AdminService {
+  rpc login(LoginAdminRequest) returns (LoginAdminReply);
+}
+
+message LoginAdminRequest {
+  string username = 1;
+}
+
+message LoginAdminReply {
+  string result = 1;
+  bool status = 2;
+  string password = 3;
+  string role = 4;
+}

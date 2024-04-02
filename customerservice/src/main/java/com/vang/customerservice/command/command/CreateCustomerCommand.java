@@ -22,6 +22,6 @@ public class CreateCustomerCommand {
     private String role;
     private LocalDateTime createddate;
     private LocalDateTime dateofbirth;
-    private Integer activestatus;
+    private int activestatus;
     private String avatar;
 }

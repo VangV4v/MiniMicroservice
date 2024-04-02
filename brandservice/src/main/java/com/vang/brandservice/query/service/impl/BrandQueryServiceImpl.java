@@ -16,8 +16,12 @@ import java.util.List;
 @Service
 public class BrandQueryServiceImpl implements BrandQueryService {
 
+    private final QueryGateway queryGateway;
+
     @Autowired
-    private QueryGateway queryGateway;
+    public BrandQueryServiceImpl(QueryGateway queryGateway) {
+        this.queryGateway = queryGateway;
+    }
 
     @Override
     public ResponseEntity<BrandResponseModel> getDetail(String id) {

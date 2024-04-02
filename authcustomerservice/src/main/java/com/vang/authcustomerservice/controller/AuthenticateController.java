@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/v1/auth-customer/authenticate/")
+@RequestMapping("/api/v1/auth/customer")
 public class AuthenticateController {
 
+    private final AuthenticateService authenticateService;
+
     @Autowired
-    private AuthenticateService authenticateService;
+    public AuthenticateController(AuthenticateService authenticateService) {
+        this.authenticateService = authenticateService;
+    }
 
     @PostMapping
     public ResponseEntity<String> authenticate(@RequestBody AuthRequestModel model) {

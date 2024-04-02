@@ -1,5 +1,5 @@
 grpc:
   client:
     CustomerService:
-      address: static://localhost:2009
+      address: static://192.168.160.1:2009
       negotiation-type: plaintext

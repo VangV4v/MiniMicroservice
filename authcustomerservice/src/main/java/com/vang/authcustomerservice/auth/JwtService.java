@@ -21,8 +21,12 @@ import java.util.function.Function;
 @Component
 public class JwtService {
 
+    private final MyUserdetailService userdetailService;
+
     @Autowired
-    private MyUserdetailService userdetailService;
+    public JwtService(MyUserdetailService userdetailService) {
+        this.userdetailService = userdetailService;
+    }
 
     public String generateToken(String username) {
 

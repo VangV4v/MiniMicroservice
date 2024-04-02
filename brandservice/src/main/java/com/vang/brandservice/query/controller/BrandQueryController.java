@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/api/v1/brands/")
 public class BrandQueryController {
 
+    private final BrandQueryService brandQueryService;
+
     @Autowired
-    private BrandQueryService brandQueryService;
+    public BrandQueryController(BrandQueryService brandQueryService) {
+        this.brandQueryService = brandQueryService;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<BrandResponseModel> getDetail(@PathVariable("id") String id) {

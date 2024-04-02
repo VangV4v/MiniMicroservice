@@ -11,5 +11,5 @@ public class UpdateBrandCommand {
     private String brandid;
     private String brandname;
     private String description;
-    private Integer activestatus;
+    private int activestatus;
 }

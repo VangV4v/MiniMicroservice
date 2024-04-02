@@ -20,8 +20,12 @@ import java.util.List;
 @Component
 public class CustomerQueryProjection {
 
+    private final CustomersRepository repository;
+
     @Autowired
-    private CustomersRepository repository;
+    public CustomerQueryProjection(CustomersRepository repository) {
+        this.repository = repository;
+    }
 
     @QueryHandler
     public CustomerResponseModel getDetail(GetDetailCustomer detailCustomer) {

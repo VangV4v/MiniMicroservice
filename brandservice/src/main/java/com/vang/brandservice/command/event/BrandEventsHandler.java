@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class BrandEventsHandler {
 
+    private final BrandsRepository repository;
+
     @Autowired
-    private BrandsRepository repository;
+    public BrandEventsHandler(BrandsRepository repository) {
+        this.repository = repository;
+    }
 
     @EventHandler
     @Transactional

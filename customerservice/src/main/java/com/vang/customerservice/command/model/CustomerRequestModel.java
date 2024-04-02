@@ -20,6 +20,6 @@ public class CustomerRequestModel implements Serializable {
     private String role;
     private Date createddate;
     private Date dateofbirth;
-    private Integer activestatus;
+    private int activestatus;
     private String avatar;
 }

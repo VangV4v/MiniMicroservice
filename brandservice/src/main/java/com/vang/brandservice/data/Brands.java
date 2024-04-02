@@ -19,5 +19,5 @@ public class Brands {
     @Column(name = "description")
     private String description;
     @Column(name = "activestatus")
-    private Integer activestatus;
+    private int activestatus;
 }

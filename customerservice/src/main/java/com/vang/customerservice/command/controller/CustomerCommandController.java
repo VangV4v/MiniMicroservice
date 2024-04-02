@@ -4,16 +4,22 @@ import com.vang.customerservice.command.model.CustomerRequestModel;
 import com.vang.customerservice.command.service.CustomerCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers/")
 public class CustomerCommandController {
 
+    private final CustomerCommandService customerCommandService;
+
     @Autowired
-    private CustomerCommandService customerCommandService;
+    public CustomerCommandController(CustomerCommandService customerCommandService) {
+        this.customerCommandService = customerCommandService;
+    }
 
     @PostMapping
+    @Async
     public ResponseEntity<String> addCustomer(@RequestBody CustomerRequestModel model) {
 
         return customerCommandService.addCustomer(model);

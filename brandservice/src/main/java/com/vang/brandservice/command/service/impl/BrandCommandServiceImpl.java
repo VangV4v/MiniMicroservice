@@ -22,8 +22,12 @@ import static org.vang.minimicroservice.service.BrandServiceCommon.*;
 @Service
 public class BrandCommandServiceImpl implements BrandCommandService {
 
+    private final CommandGateway commandGateway;
+
     @Autowired
-    private CommandGateway commandGateway;
+    public BrandCommandServiceImpl(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
+    }
 
     @Override
     public ResponseEntity<String> addBrand(BrandRequestModel model) {

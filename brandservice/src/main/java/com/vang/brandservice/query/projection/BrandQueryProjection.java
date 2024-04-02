@@ -18,8 +18,12 @@ import java.util.List;
 @Component
 public class BrandQueryProjection {
 
+    private final BrandsRepository repository;
+
     @Autowired
-    private BrandsRepository repository;
+    public BrandQueryProjection(BrandsRepository repository) {
+        this.repository = repository;
+    }
 
     @QueryHandler
     public BrandResponseModel getDetail(GetDetailBrand detailBrand) {

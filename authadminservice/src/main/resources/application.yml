@@ -1,0 +1,5 @@
+grpc:
+  client:
+    AdminService:
+      address: static://192.168.160.1:3009
+      negotiation-type: plaintext

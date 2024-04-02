@@ -34,6 +34,11 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
         command.setCreateddate(DateUtils.getDateTimeCurrent());
         command.setActivestatus(1);
         commandGateway.sendAndWait(command);
+        try {
+            Thread.sleep(4);
+        }catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return new ResponseEntity<>(MessageCommon.getMessage(CUSTOMER001, new String[]{CUSTOMER, model.getUsername()}), HttpStatus.OK);
     }
 

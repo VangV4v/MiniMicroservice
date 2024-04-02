@@ -21,20 +21,32 @@ import java.security.Principal;
 public class AuthenticateServiceImpl implements AuthenticateService {
 
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    public AuthenticateServiceImpl(JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public ResponseEntity<String> authenticate(AuthRequestModel model) {
 
         try {
 
+            String username  = null;
+            if(model.getUsername() != null) {
+                username = model.getUsername();
+            }else if(model.getEmail() != null) {
+                username = model.getEmail();
+            }else if (model.getPhone() != null) {
+                username = model.getPhone();
+            }
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
             if(authentication.isAuthenticated()) {
-                return new ResponseEntity<>(jwtService.generateToken(model.getUsername()), HttpStatus.OK);
+                return new ResponseEntity<>(jwtService.generateToken(username), HttpStatus.OK);
             }
         }catch (BadCredentialsException badCredentialsException) {
             return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.AUTHCUSTOMER001), HttpStatus.BAD_REQUEST);

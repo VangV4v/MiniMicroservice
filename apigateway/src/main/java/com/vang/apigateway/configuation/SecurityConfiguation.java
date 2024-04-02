@@ -29,7 +29,7 @@ public class SecurityConfiguation {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
 
-        String urlPermitAll [] = {"/api/v1/auth-customer/**"};
+        String urlPermitAll [] = {"/api/v1/auth/customer"};
         String urlRoleCustomer [] = {"/api/v1/customers/**","/api/v1/brands/**"};
         http.csrf(crsf -> crsf.disable());
         http.httpBasic(httpBasicSpec -> httpBasicSpec.disable());
