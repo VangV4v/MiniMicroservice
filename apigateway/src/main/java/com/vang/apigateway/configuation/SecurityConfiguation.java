@@ -29,16 +29,18 @@ public class SecurityConfiguation {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
 
-        String urlPermitAll [] = {"/api/v1/auth/customer"};
-        String urlRoleCustomer [] = {"/api/v1/customers/**","/api/v1/brands/**"};
+        String urlPermitAll [] = {"/api/v1/auth/customer","/api/v1/auth/admin"};
+        String urlRoleCustomer [] = {"/api/v1/brands/**"};
+        String urlRoleAdmin [] = {"/api/v1/customers/**"};
         http.csrf(crsf -> crsf.disable());
         http.httpBasic(httpBasicSpec -> httpBasicSpec.disable());
         http.authorizeExchange(auth ->
                 auth.pathMatchers(urlPermitAll).permitAll()
                         .pathMatchers(urlRoleCustomer).hasAuthority(SecurityCommon.ROLE_CUSTOMER)
+                        .pathMatchers(urlRoleAdmin).hasAuthority(SecurityCommon.ROLE_ADMIN)
                         .anyExchange().authenticated()
                 );
-        http.addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+        http.addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);
         return http.build();
     }
 }

@@ -1,5 +1,6 @@
 package com.vang.authcustomerservice.auth;
 
+import com.vang.authcustomerservice.grpc.CustomerGrpcClient;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -21,17 +22,17 @@ import java.util.function.Function;
 @Component
 public class JwtService {
 
-    private final MyUserdetailService userdetailService;
+    private final CustomerGrpcClient customerGrpcClient;
 
     @Autowired
-    public JwtService(MyUserdetailService userdetailService) {
-        this.userdetailService = userdetailService;
+    public JwtService(CustomerGrpcClient customerGrpcClient) {
+        this.customerGrpcClient = customerGrpcClient;
     }
 
     public String generateToken(String username) {
 
-        UserDetails userDetails = userdetailService.loadUserByUsername(username);
-        String role = userDetails.getAuthorities().toString();
+        Map<String, Object> reply = customerGrpcClient.getReplyLogin(username);
+        String role = reply.get(FieldNameCommon.ROLE).toString();
         Map<String, String> claims = new HashMap<>();
         claims.put(FieldNameCommon.ROLE, role);
         return createToken(username, claims);

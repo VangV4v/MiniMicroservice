@@ -13,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.vang.minimicroservice.common.NumberUtils;
 import org.vang.minimicroservice.common.SecurityCommon;
+import org.vang.minimicroservice.message.MessageCode;
+import org.vang.minimicroservice.message.MessageCommon;
 import org.vang.minimicroservice.method.DateUtils;
 import org.vang.minimicroservice.method.MethodCommon;
+import org.vang.minimicroservice.service.AdminServiceConstant;
 
 @Service
 public class AdminCommandServiceImpl implements AdminCommandService {
@@ -35,7 +38,7 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         command.setCreateddate(DateUtils.getDateTimeCurrent());
         command.setActivestatus(NumberUtils.ZERO);
         commandGateway.sendAndWait(command);
-        return new ResponseEntity<>("add Admin success", HttpStatus.OK);
+        return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.ADMIN001, new String[] {AdminServiceConstant.ADMIN, command.getFirstname() + command.getLastname()}), HttpStatus.OK);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         commandGateway.sendAndWait(command);
-        return new ResponseEntity<>("update Admin success", HttpStatus.OK);
+        return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.ADMIN002, new String[] {AdminServiceConstant.ADMIN, command.getFirstname() + command.getLastname()}), HttpStatus.OK);
     }
 
     @Override
@@ -53,6 +56,6 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setAdminid(id);
         commandGateway.sendAndWait(command);
-        return new ResponseEntity<>("delete Admin success", HttpStatus.OK);
+        return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.ADMIN003, new String[] {AdminServiceConstant.ADMIN}), HttpStatus.OK);
     }
 }

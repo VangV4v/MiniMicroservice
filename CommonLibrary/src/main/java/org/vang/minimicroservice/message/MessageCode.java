@@ -13,5 +13,8 @@ public class MessageCode {
     public static final String AUTHCUSTOMER001 = "auth.controller.mess.notify.2";
     public static final String AUTHCUSTOMER002 = "auth.controller.mess.notify.3";
 
+    public static final String ADMIN001 = "admin.controller.add";
+    public static final String ADMIN002 = "admin.controller.update";
+    public static final String ADMIN003 = "admin.controller.delete";
 
 }

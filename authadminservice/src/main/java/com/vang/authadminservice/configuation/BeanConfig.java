@@ -1,4 +1,4 @@
-package com.vang.authcustomerservice.configuation;
+package com.vang.authadminservice.configuation;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -22,8 +22,12 @@ import java.util.List;
 @Component
 public class JwtFilter implements WebFilter {
 
+    private final JwtService jwtService;
+
     @Autowired
-    private JwtService jwtService;
+    public JwtFilter(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -35,7 +39,7 @@ public class JwtFilter implements WebFilter {
 
                 String role = jwtService.extractRole(token);
                 String username = jwtService.extractUsername(token);
-                List<GrantedAuthority> listGrant = List.of(new SimpleGrantedAuthority(SecurityCommon.ROLE_CUSTOMER));
+                List<GrantedAuthority> listGrant = List.of(new SimpleGrantedAuthority(role));
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, listGrant);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authenticationToken));
