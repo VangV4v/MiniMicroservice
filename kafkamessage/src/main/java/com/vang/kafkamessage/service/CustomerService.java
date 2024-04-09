@@ -15,6 +15,6 @@ public class CustomerService {
     public void handlerMessage(CustomerMessageModel message) {
 
         mailService.sendEmail(message.getEmail(), "CREATE ACCOUNT", "Thanks.");
-        System.out.println("-------------------Success------------------");
     }
+
 }

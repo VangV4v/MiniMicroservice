@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Data
 public class AuthRequestModel implements Serializable {
 
-    private String email;
-    private String phone;
+    private String username;
     private String password;
 }

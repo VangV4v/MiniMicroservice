@@ -33,19 +33,13 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     @Override
     public ResponseEntity<String> authenticate(AuthRequestModel model) {
 
-        String username = null;
-        if(!StringUtils.isBlank(model.getEmail())) {
-            username = model.getEmail();
-        }else if (!StringUtils.isBlank(model.getPhone())) {
-            username = model.getPhone();
-        }
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, model.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
             if(authentication.isAuthenticated()) {
-                return new ResponseEntity<>(jwtService.generateToken(username), HttpStatus.OK);
+                return new ResponseEntity<>(jwtService.generateToken(model.getUsername()), HttpStatus.OK);
             }
         }catch (BadCredentialsException e) {
-            return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.AUTHCUSTOMER001), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.AUTHCUSTOMER001), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(ServiceCommon.FAIL, HttpStatus.BAD_REQUEST);
     }

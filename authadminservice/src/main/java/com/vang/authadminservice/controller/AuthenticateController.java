@@ -4,6 +4,7 @@ import com.vang.authadminservice.model.AuthRequestModel;
 import com.vang.authadminservice.service.AuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class AuthenticateController {
         this.authenticateService = authenticateService;
     }
 
+    @Async
     @PostMapping
     public ResponseEntity<String> authenticate(@RequestBody AuthRequestModel model) {
 
