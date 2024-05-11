@@ -3,8 +3,6 @@ package com.vang.authadminservice.service.impl;
 import com.vang.authadminservice.auth.JwtService;
 import com.vang.authadminservice.model.AuthRequestModel;
 import com.vang.authadminservice.service.AuthenticateService;
-//import org.apache.commons.lang.StringUtils;
-import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

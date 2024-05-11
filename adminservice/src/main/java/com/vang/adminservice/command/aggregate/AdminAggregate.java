@@ -15,6 +15,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Aggregate
 @Data
@@ -32,10 +33,12 @@ public class AdminAggregate {
     private String password;
     private String passwordsecret;
     private String role;
-    private Date createddate;
+    private LocalDateTime createddate;
     private Date dateofbirth;
     private Integer activestatus;
     private String avatar;
+    private byte[] image;
+    private String fileName;
 
     public AdminAggregate() {}
 
@@ -101,6 +104,8 @@ public class AdminAggregate {
         this.dateofbirth = event.getDateofbirth();
         this.activestatus = event.getActivestatus();
         this.avatar = event.getAvatar();
+        this.image = event.getImage();
+        this.fileName = event.getFileName();
     }
 
     @EventSourcingHandler

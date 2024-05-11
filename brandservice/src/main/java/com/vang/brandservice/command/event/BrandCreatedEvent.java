@@ -1,6 +1,8 @@
 package com.vang.brandservice.command.event;
 
+import com.google.protobuf.ByteString;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class BrandCreatedEvent {
@@ -9,5 +11,8 @@ public class BrandCreatedEvent {
     private String brandid;
     private String brandname;
     private String description;
+    private String logo;
     private int activestatus;
+    private byte[] image;
+    private String fileName;
 }

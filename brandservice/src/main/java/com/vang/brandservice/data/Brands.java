@@ -6,9 +6,6 @@ import lombok.Data;
 @Entity
 @Table(name = "brands")
 @Data
-@NamedStoredProcedureQuery(procedureName = "autoBrandId", name = "autoBrandId", parameters = {
-        @StoredProcedureParameter(name = "brandId", mode = ParameterMode.OUT, type = String.class)
-})
 public class Brands {
 
     @Id
@@ -18,6 +15,8 @@ public class Brands {
     private String brandname;
     @Column(name = "description")
     private String description;
+    @Column(name = "logo")
+    private String logo;
     @Column(name = "activestatus")
     private int activestatus;
 }

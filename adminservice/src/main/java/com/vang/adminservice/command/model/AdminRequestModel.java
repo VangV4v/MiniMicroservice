@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class AdminRequestModel implements Serializable {
@@ -18,7 +19,7 @@ public class AdminRequestModel implements Serializable {
     private String password;
     private String passwordsecret;
     private String role;
-    private Date createddate;
+    private LocalDateTime createddate;
     private Date dateofbirth;
     private Integer activestatus;
     private String avatar;

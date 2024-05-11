@@ -7,16 +7,18 @@ export const authAdmin = createAsyncThunk(
     'auth/loginAdmin',
     async (model: LoginModel) => {
         const response = await authAdminApi.login(model);
+        localStorage.setItem('jwt', response.data);
         return { jwt: response.data };
     }
 )
 
 interface AuthSliceModel {
-    jwt: string
+    jwt: string,
+    authentication: boolean
 }
-
 const initialState: AuthSliceModel = {
-    jwt: localStorage.getItem('jwt') || ''
+    jwt: localStorage.getItem('jwt') || '',
+    authentication: false
 }
 
 const authAdminSlice = createSlice({
@@ -28,6 +30,7 @@ const authAdminSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(authAdmin.fulfilled, (state, action) => {
             state.jwt = action.payload.jwt;
+            state.authentication = true;
         })
         // ,
         //     builder.addCase(authAdmin.rejected, (state, action) => {
@@ -38,5 +41,6 @@ const authAdminSlice = createSlice({
 });
 
 const { reducer } = authAdminSlice;
-export const selectCount = (state: RootState) => state.auth.jwt
+export const selectJwt = (state: RootState) => state.auth.jwt
+export const selectAuthentication = (state: RootState) => state.auth.authentication
 export default reducer;

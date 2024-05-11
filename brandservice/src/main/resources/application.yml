@@ -1,0 +1,5 @@
+#grpc:
+#  client:
+#    UploadImageService:
+#      address: static://localhost:5009
+#      negotiation-type: plaintext

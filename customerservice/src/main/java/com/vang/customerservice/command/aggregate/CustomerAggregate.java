@@ -36,6 +36,8 @@ public class CustomerAggregate {
     private LocalDateTime dateofbirth;
     private int activestatus;
     private String avatar;
+    private byte[] image;
+    private String fileName;
 
     public CustomerAggregate() {}
 
@@ -79,8 +81,6 @@ public class CustomerAggregate {
         this.role = event.getRole();
         this.createddate = event.getCreateddate();
         this.dateofbirth = event.getDateofbirth();
-        this.activestatus = event.getActivestatus();
-        this.avatar = event.getAvatar();
     }
 
     @EventSourcingHandler
@@ -101,6 +101,8 @@ public class CustomerAggregate {
         this.dateofbirth = event.getDateofbirth();
         this.activestatus = event.getActivestatus();
         this.avatar = event.getAvatar();
+        this.image = event.getImage();
+        this.fileName = event.getFileName();
     }
 
     @EventSourcingHandler

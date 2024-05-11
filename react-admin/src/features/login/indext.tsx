@@ -6,7 +6,6 @@ import { Send } from '@mui/icons-material';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import LoginModel from '../../models/LoginModel';
-import authAdminApi from '../../api/AuthAdminApi';
 import { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { authAdmin } from '../../app/slice/AuthSlice';
@@ -29,9 +28,12 @@ export default function LoginPage() {
     });
     const dispatch = useAppDispatch();
     const handleLoginSubmit = async (data: LoginModel) => {
-        dispatch(authAdmin(data)).unwrap().catch(function (err) {
-            setShowErrLogin(true);
-        });
+        dispatch(authAdmin(data)).unwrap()
+            .then(function (result) {
+                setShowErrLogin(false);
+            }).catch(function (err) {
+                setShowErrLogin(true);
+            });
     };
     return (
         <div>

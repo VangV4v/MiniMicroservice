@@ -31,18 +31,6 @@ public class SecurityConfiguation {
         return authentication -> Mono.empty();
     }
 
-//    @Bean
-//    public CorsConfigurationSource configurationSource() {
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//        corsConfig.addAllowedOrigin("*");
-//        corsConfig.addAllowedMethod("*");
-//        corsConfig.addAllowedHeader("*");
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfig);
-//        return source;
-//    }
-
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
 

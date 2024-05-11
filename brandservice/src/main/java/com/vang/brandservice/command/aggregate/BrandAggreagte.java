@@ -1,5 +1,6 @@
 package com.vang.brandservice.command.aggregate;
 
+import com.google.protobuf.ByteString;
 import com.vang.brandservice.command.command.CreateBrandCommand;
 import com.vang.brandservice.command.command.DeleteBrandCommand;
 import com.vang.brandservice.command.command.UpdateBrandCommand;
@@ -13,6 +14,7 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Aggregate
@@ -23,7 +25,10 @@ public class BrandAggreagte {
     private String brandid;
     private String brandname;
     private String description;
+    private String logo;
     private int activestatus;
+    private byte[] image;
+    private String fileName;
 
     public BrandAggreagte() {}
 
@@ -55,10 +60,12 @@ public class BrandAggreagte {
     public void handle(BrandCreatedEvent event) {
 
         this.autoAggregateIdentifier = event.getAutoAggregateIdentifier();
-        this.brandid = event.getBrandid();
         this.brandname = event.getBrandname();
         this.description = event.getDescription();
+        this.logo = event.getLogo();
         this.activestatus = event.getActivestatus();
+        this.image = event.getImage();
+        this.fileName = event.getFileName();
     }
 
     @EventSourcingHandler
@@ -68,7 +75,10 @@ public class BrandAggreagte {
         this.brandid = event.getBrandid();
         this.brandname = event.getBrandname();
         this.description = event.getDescription();
+        this.logo = event.getLogo();
         this.activestatus = event.getActivestatus();
+        this.image = event.getImage();
+        this.fileName = event.getFileName();
     }
 
     @EventSourcingHandler
@@ -77,6 +87,5 @@ public class BrandAggreagte {
         this.autoAggregateIdentifier = event.getAutoAggregateIdentifier();
         this.brandid = event.getBrandid();
     }
-
 
 }

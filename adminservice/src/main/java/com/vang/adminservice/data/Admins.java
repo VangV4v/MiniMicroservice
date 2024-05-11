@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admins")
@@ -35,7 +36,7 @@ public class Admins {
     @Column(name = "role")
     private String role;
     @Column(name = "createddate")
-    private Date createddate;
+    private LocalDateTime createddate;
     @Column(name = "dateofbirth")
     private Date dateofbirth;
     @Column(name = "activestatus")

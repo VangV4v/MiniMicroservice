@@ -1,5 +1,5 @@
 grpc:
   client:
     AdminService:
-      address: discovery:///adminservice
+      address: static://192.168.160.1:3009
       negotiation-type: plaintext

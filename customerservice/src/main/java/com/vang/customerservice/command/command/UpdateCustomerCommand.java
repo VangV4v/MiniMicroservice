@@ -24,4 +24,6 @@ public class UpdateCustomerCommand {
     private LocalDateTime dateofbirth;
     private int activestatus;
     private String avatar;
+    private byte[] image;
+    private String fileName;
 }

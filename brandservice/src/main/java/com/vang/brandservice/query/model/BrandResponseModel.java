@@ -10,6 +10,7 @@ public class BrandResponseModel implements Serializable {
     private String brandid;
     private String brandname;
     private String description;
+    private String logo;
     private int activestatus;
     private boolean dataStatus = true;
     public void initializeValue() {
