@@ -6,8 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "categories")
 @Data
@@ -23,7 +21,7 @@ public class Categories {
     @Column(name = "activestatus")
     private int activestatus;
     @Column(name = "createddate")
-    private LocalDateTime createddate;
+    private String createddate;
     @Column(name = "lastmodified")
-    private LocalDateTime lastmodified;
+    private String lastmodified;
 }

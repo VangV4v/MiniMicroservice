@@ -46,6 +46,8 @@ public class UploadImageServerImpl extends UploadImageGrpc.UploadImageImplBase {
             return ImageDefaultCommon.CUSTOMER_FOLDER;
         }else if(typeNumber == 3) {
             return ImageDefaultCommon.ADMIN_FOLDER;
+        }else if(typeNumber == 4) {
+            return ImageDefaultCommon.SELLERS_FOLDER;
         }
         return "";
     }

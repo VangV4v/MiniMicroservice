@@ -14,9 +14,6 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 @Aggregate
 @Data
 public class AdminAggregate {
@@ -28,14 +25,15 @@ public class AdminAggregate {
     private String lastname;
     private String email;
     private String confirmcode;
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String passwordsecret;
     private String role;
-    private LocalDateTime createddate;
-    private Date dateofbirth;
-    private Integer activestatus;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
+    private int activestatus;
     private String avatar;
     private byte[] image;
     private String fileName;
@@ -81,6 +79,7 @@ public class AdminAggregate {
         this.passwordsecret = event.getPasswordsecret();
         this.role = event.getRole();
         this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
         this.dateofbirth = event.getDateofbirth();
         this.activestatus = event.getActivestatus();
         this.avatar = event.getAvatar();
@@ -101,6 +100,7 @@ public class AdminAggregate {
         this.passwordsecret = event.getPasswordsecret();
         this.role = event.getRole();
         this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
         this.dateofbirth = event.getDateofbirth();
         this.activestatus = event.getActivestatus();
         this.avatar = event.getAvatar();

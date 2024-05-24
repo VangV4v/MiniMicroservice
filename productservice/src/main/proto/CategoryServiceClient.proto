@@ -1,0 +1,17 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_multiple_files = true;
+option java_package = "com.vang.productservice.command.grpc.gen";
+option java_outer_classname = "CategoryClient";
+
+service GetCategoryById {
+  rpc getData(FindCategoryByIdRequest) returns (FindCategoryByIdReply);
+}
+
+message FindCategoryByIdRequest {
+  string categoryid = 1;
+}
+
+message FindCategoryByIdReply {
+  string categoryJson = 1;
+}

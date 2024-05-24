@@ -1,11 +1,13 @@
 package org.vang.minimicroservice.common;
 
 public class MessageCommon {
+    public static String AUTH_001 = "Login fail! Invalid account";
     public static String ERROR_001 = "Username is already exist";
     public static String ERROR_002 = "Email is already exist";
     public static String ERROR_003 = "Phone is already exist";
     public static String ERROR_004 = "Please send request with hdnOldEmail";
     public static String ERROR_005 = "Please send request with hdnOldPhone";
+    public static String ERROR_006 = "Expiration has at least 30 days";
 
    public static class Admin {
         public static final String CREATE_SUCCESSFUL = "Admin created successfully";
@@ -17,5 +19,11 @@ public class MessageCommon {
         public static final String CREATE_SUCCESSFUL = "Category created successfully";
         public static final String UPDATE_SUCCESSFUL = "Category updated successfully";
         public static final String DELETE_SUCCESSFUL = "Category deleted successfully";
+    }
+
+    public static class Seller {
+       public static final String CREATE_SUCCESSFUL = "Seller created successfully";
+       public static final String UPDATE_SUCCESSFUL = "Seller updated successfully";
+       public static final String DELETE_SUCCESSFUL = "Seller deleted successfully";
     }
 }

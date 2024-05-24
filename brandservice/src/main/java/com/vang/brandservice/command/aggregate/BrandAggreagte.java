@@ -26,6 +26,8 @@ public class BrandAggreagte {
     private String brandname;
     private String description;
     private String logo;
+    private String createddate;
+    private String lastmodified;
     private int activestatus;
     private byte[] image;
     private String fileName;
@@ -66,6 +68,8 @@ public class BrandAggreagte {
         this.activestatus = event.getActivestatus();
         this.image = event.getImage();
         this.fileName = event.getFileName();
+        this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
     }
 
     @EventSourcingHandler
@@ -79,6 +83,8 @@ public class BrandAggreagte {
         this.activestatus = event.getActivestatus();
         this.image = event.getImage();
         this.fileName = event.getFileName();
+        this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
     }
 
     @EventSourcingHandler

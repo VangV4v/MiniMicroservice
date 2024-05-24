@@ -11,6 +11,8 @@ public class BrandResponseModel implements Serializable {
     private String brandname;
     private String description;
     private String logo;
+    private String createddate;
+    private String lastmodified;
     private int activestatus;
     private boolean dataStatus = true;
     public void initializeValue() {
@@ -19,5 +21,7 @@ public class BrandResponseModel implements Serializable {
         this.description = "";
         this.activestatus = 0;
         this.dataStatus = false;
+        this.createddate = "";
+        this.lastmodified = "";
     }
 }

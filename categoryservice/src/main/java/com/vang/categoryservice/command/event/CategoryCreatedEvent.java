@@ -2,7 +2,7 @@ package com.vang.categoryservice.command.event;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 public class CategoryCreatedEvent {
@@ -12,6 +12,6 @@ public class CategoryCreatedEvent {
     private String categoryname;
     private String description;
     private int activestatus;
-    private LocalDateTime createddate;
-    private LocalDateTime lastmodified;
+    private String createddate;
+    private String lastmodified;
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import static org.vang.minimicroservice.message.MessageCode.*;
 
 import org.springframework.util.ObjectUtils;
+import org.vang.minimicroservice.common.DateCommon;
 import org.vang.minimicroservice.common.ImageDefaultCommon;
 import org.vang.minimicroservice.common.NumberUtils;
 import org.vang.minimicroservice.common.ResponseCRUDCommon;
@@ -46,6 +47,7 @@ public class BrandCommandServiceImpl implements BrandCommandService {
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setActivestatus(NumberUtils.ONE);
         command.setLogo(ImageDefaultCommon.BRAND_LOGO_DEFAULT);
+        command.setCreateddate(DateCommon.getDateTimeCurrent());
         if(!ObjectUtils.isEmpty(model.getImage())) {
             try {
                 command.setImage(model.getImage().getBytes());
@@ -65,6 +67,7 @@ public class BrandCommandServiceImpl implements BrandCommandService {
         UpdateBrandCommand command = new UpdateBrandCommand();
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
+        command.setLastmodified(DateCommon.getDateTimeCurrent());
         if(!ObjectUtils.isEmpty(model.getImage())) {
             try {
                 command.setImage(model.getImage().getBytes());

@@ -12,6 +12,8 @@ public class BrandCreatedEvent {
     private String brandname;
     private String description;
     private String logo;
+    private String createddate;
+    private String lastmodified;
     private int activestatus;
     private byte[] image;
     private String fileName;

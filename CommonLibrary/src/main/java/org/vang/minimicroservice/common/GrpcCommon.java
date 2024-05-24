@@ -6,5 +6,7 @@ public class GrpcCommon {
 
     public static class PortCommon {
         public static final int IMAGE_SERVER_PORT = 5009;
+        public static final int CATEGORY_SERVER_PORT = 6009;
+        public static final int BRAND_SERVER_PORT = 1009;
     }
 }

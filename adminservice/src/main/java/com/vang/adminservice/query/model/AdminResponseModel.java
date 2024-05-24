@@ -3,8 +3,6 @@ package com.vang.adminservice.query.model;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDateTime;
 
 @Data
 public class AdminResponseModel implements Serializable {
@@ -14,14 +12,15 @@ public class AdminResponseModel implements Serializable {
     private String lastname;
     private String email;
     private String confirmcode;
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String passwordsecret;
     private String role;
-    private LocalDateTime createddate;
-    private Date dateofbirth;
-    private Integer activestatus;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
+    private int activestatus;
     private String avatar;
     private boolean dataStatus = true;
 
@@ -37,6 +36,7 @@ public class AdminResponseModel implements Serializable {
         passwordsecret = "";
         role = "";
         createddate = null;
+        lastmodified = null;
         dateofbirth = null;
         activestatus = 0;
         avatar = "";

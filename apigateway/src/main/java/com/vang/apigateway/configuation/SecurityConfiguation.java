@@ -34,9 +34,10 @@ public class SecurityConfiguation {
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
 
-        String urlPermitAll [] = {"/api/v1/auth/customer","/api/v1/auth/admin"};
-        String urlRoleCustomer [] = {"/api/v1/brands/**"};
-        String urlRoleAdmin [] = {"/api/v1/customers/**"};
+        String urlPermitAll [] = {"/api/v1/auth/customer/","/api/v1/auth/admin/", "/api/v1/auth/seller/"};
+        String urlRoleCustomer [] = {""};
+        String urlRoleAdmin [] = {"/api/v1/customers/**", "/api/v1/admins/**", "/api/v1/sellers/**"};
+        String urlRoleSeller [] = {"/api/v1/brands/**", "/api/v1/categories/**"};
         http.csrf(crsf -> crsf.disable());
         http.cors(cors -> cors.configurationSource(request -> {
             CorsConfiguration configuration = new CorsConfiguration();
@@ -50,6 +51,7 @@ public class SecurityConfiguation {
                 auth.pathMatchers(urlPermitAll).permitAll()
                         .pathMatchers(urlRoleCustomer).hasAuthority(SecurityCommon.ROLE_CUSTOMER)
                         .pathMatchers(urlRoleAdmin).hasAuthority(SecurityCommon.ROLE_ADMIN)
+                        .pathMatchers(urlRoleSeller).hasAuthority(SecurityCommon.ROLE_SELLER)
                         .anyExchange().authenticated()
                 );
         http.addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION);

@@ -1,0 +1,5 @@
+grpc:
+  client:
+    LoginSeller:
+      address: static://192.168.160.1:7009
+      negotiation-type: plaintext

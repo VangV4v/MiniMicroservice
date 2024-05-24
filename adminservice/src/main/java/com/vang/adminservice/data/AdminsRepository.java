@@ -6,9 +6,6 @@ import org.springframework.data.jpa.repository.query.Procedure;
 
 public interface AdminsRepository extends JpaRepository<Admins, String> {
 
-    @Procedure("autoIdAdmin")
-    String autoGenerateIdAdmin();
-
     @Query(value = "call authAdmin(?1)",nativeQuery = true)
     Admins findByLoginKey(String key);
 
@@ -26,4 +23,7 @@ public interface AdminsRepository extends JpaRepository<Admins, String> {
 
     @Query(value = "select count(ad.phone) from admins ad where ad.phone = ?1 and ad.phone != ?2", nativeQuery = true)
     long getCountByPhoneToUpdate(String phone, String oldPhone);
+
+    @Query(value = "select ad.password from admins ad where ad.email = ?1 or ad.phone = ?1 and activestatus = 1", nativeQuery = true)
+    String getPasswordByUsername(String username);
 }

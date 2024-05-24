@@ -2,8 +2,6 @@ package com.vang.customerservice.command.event;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class CustomerCreatedEvent {
 
@@ -14,12 +12,13 @@ public class CustomerCreatedEvent {
     private String username;
     private String email;
     private String confirmcode;
-    private LocalDateTime confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String role;
-    private LocalDateTime createddate;
-    private LocalDateTime dateofbirth;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
     private int activestatus;
     private String avatar;
 }

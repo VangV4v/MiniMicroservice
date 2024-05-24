@@ -1,0 +1,17 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_multiple_files = true;
+option java_package = "com.vang.brandservice.query.grpc.gen";
+option java_outer_classname = "BrandServiceServer";
+
+service GetBrandById {
+  rpc getData(FindBrandByIdRequest) returns (FindBrandByIdReply);
+}
+
+message FindBrandByIdRequest {
+  string brandid = 1;
+}
+
+message FindBrandByIdReply {
+  string brandjson = 1;
+}

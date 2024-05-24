@@ -12,6 +12,8 @@ public class BrandRequestModel implements Serializable {
     private String brandname;
     private String description;
     private String logo;
+    private String createddate;
+    private String lastmodified;
     private MultipartFile image;
     private int activestatus;
 }

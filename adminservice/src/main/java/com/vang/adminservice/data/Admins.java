@@ -3,14 +3,8 @@ package com.vang.adminservice.data;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "admins")
-@NamedStoredProcedureQuery(name = "autoIdAdmin", procedureName = "autoIdAdmin", parameters = {
-        @StoredProcedureParameter(name = "adminid", type = String.class, mode = ParameterMode.OUT)
-})
 @Data
 public class Admins {
 
@@ -26,7 +20,7 @@ public class Admins {
     @Column(name = "confirmcode")
     private String confirmcode;
     @Column(name = "confirmcodeexpiration")
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     @Column(name = "phone")
     private String phone;
     @Column(name = "password")
@@ -36,9 +30,11 @@ public class Admins {
     @Column(name = "role")
     private String role;
     @Column(name = "createddate")
-    private LocalDateTime createddate;
+    private String createddate;
+    @Column(name = "lastmodified")
+    private String lastmodified;
     @Column(name = "dateofbirth")
-    private Date dateofbirth;
+    private String dateofbirth;
     @Column(name = "activestatus")
     private Integer activestatus;
     @Column(name = "avatar")

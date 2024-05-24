@@ -20,7 +20,7 @@ public class BrandCommandController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseCRUDCommon> addBrand(@ModelAttribute BrandRequestModel model) {
+    public ResponseEntity<ResponseCRUDCommon> addBrand(@RequestBody BrandRequestModel model) {
         return brandCommandService.addBrand(model);
     }
 

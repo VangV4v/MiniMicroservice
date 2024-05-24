@@ -3,8 +3,6 @@ package com.vang.customerservice.data;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
-
 @Entity
 @Table(name = "customers")
 @NamedStoredProcedureQuery(name = "autoCustomerId", procedureName = "autoCustomerId", parameters = {
@@ -27,7 +25,7 @@ public class Customers {
     @Column(name = "confirmcode")
     private String confirmcode;
     @Column(name = "confirmcodeexpiration")
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     @Column(name = "phone")
     private String phone;
     @Column(name = "password")
@@ -35,11 +33,13 @@ public class Customers {
     @Column(name = "role")
     private String role;
     @Column(name = "createddate")
-    private Date createddate;
+    private String createddate;
+    @Column(name = "lastmodified")
+    private String lastmodified;
     @Column(name = "dateofbirth")
-    private Date dateofbirth;
+    private String dateofbirth;
     @Column(name = "activestatus")
-    private Integer activestatus;
+    private int activestatus;
     @Column(name = "avatar")
     private String avatar;
 }

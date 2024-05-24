@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.vang.minimicroservice.common.*;
-import org.vang.minimicroservice.method.DateUtils;
 import org.vang.minimicroservice.method.MethodCommon;
 
 import java.io.IOException;
@@ -42,29 +41,27 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         long checkEmail = adminsRepository.getCountByEmail(model.getEmail());
         long checkPhone = adminsRepository.getCountByPhone(model.getPhone());
         Set<String> errors = new HashSet<>();
-        int statusError = 0;
         ResponseCRUDCommon response;
         CreateAdminCommand command = new CreateAdminCommand();
         if(checkEmail > 0) {
             errors.add(MessageCommon.ERROR_002);
-            statusError++;
         }
         if(checkPhone > 0) {
             errors.add(MessageCommon.ERROR_003);
-            statusError++;
         }
-        if(statusError > 0) {
+        if(!errors.isEmpty()) {
             response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(errors).build();
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setRole(SecurityCommon.ROLE_ADMIN);
-        command.setCreateddate(DateUtils.getDateTimeCurrent());
+        command.setCreateddate(DateCommon.getDateTimeCurrent());
         command.setActivestatus(NumberUtils.ONE);
         command.setAvatar(ImageDefaultCommon.ADMIN_AVATAR_DEFAULT);
         command.setPassword(passwordEncoder.encode(model.getPassword()));
         command.setPasswordsecret(passwordEncoder.encode(model.getPasswordsecret()));
+        command.setDateofbirth(DateCommon.checkDateFormatAndConvert(model.getDateofbirth()));
         commandGateway.sendAndWait(command);
         response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Admin.CREATE_SUCCESSFUL).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -77,7 +74,6 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         long checkPhone = adminsRepository.getCountByPhoneToUpdate(model.getPhone(), model.getHdnOldPhone());
         Set<String> errors = new HashSet<>();
         ResponseCRUDCommon response;
-        int statusError = 0;
         if(StringUtils.isBlank(model.getHdnOldPhone()) || StringUtils.isBlank(model.getHdnOldEmail())) {
             errors.add(MessageCommon.ERROR_004);
             errors.add(MessageCommon.ERROR_005);
@@ -86,13 +82,11 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         }
         if(checkEmail > 0) {
             errors.add(MessageCommon.ERROR_002);
-            statusError++;
         }
         if(checkPhone > 0) {
             errors.add(MessageCommon.ERROR_003);
-            statusError++;
         }
-        if(statusError > 0) {
+        if(!errors.isEmpty()) {
             response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(errors).build();
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
@@ -114,6 +108,9 @@ public class AdminCommandServiceImpl implements AdminCommandService {
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setPassword(passwordEncoder.encode(model.getPassword()));
         command.setPasswordsecret(passwordEncoder.encode(model.getPasswordsecret()));
+        command.setRole(SecurityCommon.ROLE_ADMIN);
+        command.setDateofbirth(DateCommon.checkDateFormatAndConvert(model.getDateofbirth()));
+        command.setLastmodified(DateCommon.getDateTimeCurrent());
         commandGateway.sendAndWait(command);
         response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Admin.UPDATE_SUCCESSFUL).build();
         return new ResponseEntity<>(response, HttpStatus.OK);

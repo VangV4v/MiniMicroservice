@@ -3,8 +3,6 @@ package com.vang.categoryservice.command.command;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-import java.time.LocalDateTime;
-
 @Data
 public class UpdateCategoryCommand {
 
@@ -14,6 +12,6 @@ public class UpdateCategoryCommand {
     private String categoryname;
     private String description;
     private int activestatus;
-    private LocalDateTime createddate;
-    private LocalDateTime lastmodified;
+    private String createddate;
+    private String lastmodified;
 }

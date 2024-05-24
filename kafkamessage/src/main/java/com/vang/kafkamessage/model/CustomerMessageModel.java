@@ -1,8 +1,11 @@
 package com.vang.kafkamessage.model;
 
 import lombok.Data;
+
+import java.io.Serializable;
+
 @Data
-public class CustomerMessageModel {
+public class CustomerMessageModel implements Serializable {
 
     private String fullName;
     private String email;

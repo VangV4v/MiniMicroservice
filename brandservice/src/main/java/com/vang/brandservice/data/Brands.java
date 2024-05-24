@@ -19,4 +19,8 @@ public class Brands {
     private String logo;
     @Column(name = "activestatus")
     private int activestatus;
+    @Column(name = "createddate")
+    private String createddate;
+    @Column(name = "lastmodified")
+    private String lastmodified;
 }

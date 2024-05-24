@@ -3,7 +3,6 @@ package com.vang.customerservice.command.service.impl;
 import com.vang.customerservice.command.command.CreateCustomerCommand;
 import com.vang.customerservice.command.command.DeleteCustomerCommand;
 import com.vang.customerservice.command.command.UpdateCustomerCommand;
-import com.vang.customerservice.command.grpc.ImageServiceClientImpl;
 import com.vang.customerservice.command.model.CustomerRequestModel;
 import com.vang.customerservice.command.model.CustomerUpdateRequestModel;
 import com.vang.customerservice.command.service.CustomerCommandService;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Service;
 import static org.vang.minimicroservice.message.MessageCode.*;
 
 import org.springframework.util.ObjectUtils;
+import org.vang.minimicroservice.common.DateCommon;
 import org.vang.minimicroservice.common.ImageDefaultCommon;
 import org.vang.minimicroservice.common.ResponseCRUDCommon;
 import org.vang.minimicroservice.common.StringCommon;
@@ -26,6 +26,8 @@ import org.vang.minimicroservice.method.DateUtils;
 import org.vang.minimicroservice.method.MethodCommon;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,9 +83,10 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
             command.setPassword(passwordEncoder.encode(command.getPassword()));
             command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
             command.setRole(ROLE_CUSTOMER);
-            command.setCreateddate(DateUtils.getDateTimeCurrent());
+            command.setCreateddate(DateCommon.getDateTimeCurrent());
             command.setActivestatus(1);
             command.setAvatar(ImageDefaultCommon.CUSTOMER_AVATAR_DEFAULT);
+            command.setDateofbirth(DateCommon.checkDateFormatAndConvert(model.getDateofbirth()));
             commandGateway.sendAndWait(command);
             response = ResponseCRUDCommon.builder().errorStatus(false).message(Message.ADD_CUSTOMER_SUCCESS).build();
             try {
@@ -144,6 +147,9 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
             BeanUtils.copyProperties(model, command);
             command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
             command.setPassword(checkPassword(model.getPassword()));
+            command.setRole(ROLE_CUSTOMER);
+            command.setDateofbirth(DateCommon.checkDateFormatAndConvert(model.getDateofbirth()));
+            command.setLastmodified(DateCommon.getDateTimeCurrent());
             commandGateway.sendAndWait(command);
             response = ResponseCRUDCommon.builder().errorStatus(false).message(Message.UPDATE_CUSTOMER_SUCCESS).build();
             return new ResponseEntity<>(response, HttpStatus.OK);

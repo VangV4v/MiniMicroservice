@@ -3,7 +3,6 @@ package com.vang.customerservice.command.model;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 public class CustomerRequestModel implements Serializable {
@@ -14,12 +13,13 @@ public class CustomerRequestModel implements Serializable {
     private String username;
     private String email;
     private String confirmcode;
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String role;
-    private Date createddate;
-    private Date dateofbirth;
+    private String createddate;
+    private String modifieddate;
+    private String dateofbirth;
     private int activestatus;
     private String avatar;
 }

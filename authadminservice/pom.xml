@@ -86,11 +86,6 @@
 			<artifactId>grpc-client-spring-boot-starter</artifactId>
 			<version>3.0.0.RELEASE</version>
 		</dependency>
-		<!--		<dependency>-->
-<!--			<groupId>net.devh</groupId>-->
-<!--			<artifactId>grpc-spring-boot-starter</artifactId>-->
-<!--			<version>3.0.0.RELEASE</version>-->
-<!--		</dependency>-->
 		<!-- My Lib -->
 		<dependency>
 			<groupId>com.example</groupId>
@@ -98,6 +93,11 @@
 			<version>1.0.0</version>
 			<scope>system</scope>
 			<systemPath>${my.jar.path}</systemPath>
+		</dependency>
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
 		<dependency>

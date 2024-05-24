@@ -1,4 +1,4 @@
-package com.vang.adminservice.query.grpc;
+package com.vang.adminservice.query.service.impl;
 
 import com.vang.adminservice.query.model.AdminResponseModel;
 import com.vang.adminservice.query.queries.GetAllAdmins;

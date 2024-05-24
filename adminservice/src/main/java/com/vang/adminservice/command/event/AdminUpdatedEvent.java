@@ -3,7 +3,7 @@ package com.vang.adminservice.command.event;
 import lombok.Data;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 public class AdminUpdatedEvent {
@@ -14,14 +14,15 @@ public class AdminUpdatedEvent {
     private String lastname;
     private String email;
     private String confirmcode;
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String passwordsecret;
     private String role;
-    private LocalDateTime createddate;
-    private Date dateofbirth;
-    private Integer activestatus;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
+    private int activestatus;
     private String avatar;
     private byte[] image;
     private String fileName;

@@ -14,8 +14,6 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
-import java.time.LocalDateTime;
-
 @Aggregate
 @Data
 public class CustomerAggregate {
@@ -28,12 +26,13 @@ public class CustomerAggregate {
     private String username;
     private String email;
     private String confirmcode;
-    private LocalDateTime confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String role;
-    private LocalDateTime createddate;
-    private LocalDateTime dateofbirth;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
     private int activestatus;
     private String avatar;
     private byte[] image;
@@ -80,6 +79,7 @@ public class CustomerAggregate {
         this.password = event.getPassword();
         this.role = event.getRole();
         this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
         this.dateofbirth = event.getDateofbirth();
     }
 
@@ -98,6 +98,7 @@ public class CustomerAggregate {
         this.password = event.getPassword();
         this.role = event.getRole();
         this.createddate = event.getCreateddate();
+        this.lastmodified = event.getLastmodified();
         this.dateofbirth = event.getDateofbirth();
         this.activestatus = event.getActivestatus();
         this.avatar = event.getAvatar();

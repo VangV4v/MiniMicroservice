@@ -35,7 +35,7 @@ public class SecurityConfiguation {
 
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/admin")).permitAll();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/admin/")).permitAll();
         });
         http.authenticationProvider(authenticationProvider());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_package = "com.vang.apigateway.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "SecurityInfoServer";
+
+service GetInfoSecurity {
+  rpc getInfo(GetInfoRequest) returns (GetInfoReply);
+}
+
+message GetInfoRequest {
+  int32 type = 1;
+}
+
+message GetInfoReply {
+  bool status = 1;
+  string username = 2;
+}

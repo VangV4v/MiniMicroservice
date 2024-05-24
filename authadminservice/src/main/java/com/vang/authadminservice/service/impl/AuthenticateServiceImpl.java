@@ -11,8 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.vang.minimicroservice.message.MessageCode;
-import org.vang.minimicroservice.message.MessageCommon;
+import org.vang.minimicroservice.common.MessageCommon;
 import org.vang.minimicroservice.service.ServiceCommon;
 
 @Service
@@ -37,7 +36,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                 return new ResponseEntity<>(jwtService.generateToken(model.getUsername()), HttpStatus.OK);
             }
         }catch (BadCredentialsException e) {
-            return new ResponseEntity<>(MessageCommon.getMessage(MessageCode.AUTHCUSTOMER001), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(MessageCommon.AUTH_001, HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(ServiceCommon.FAIL, HttpStatus.BAD_REQUEST);
     }

@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.vang.minimicroservice.common.DateCommon;
 import org.vang.minimicroservice.common.MessageCommon;
 import org.vang.minimicroservice.common.NumberUtils;
 import org.vang.minimicroservice.common.ResponseCRUDCommon;
 import org.vang.minimicroservice.method.MethodCommon;
-
-import java.time.LocalDateTime;
 
 @Service
 public class CategoryCommandServiceImpl implements CategoryCommandService {
@@ -33,7 +32,7 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
         CreateCategoryCommand command = new CreateCategoryCommand();
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
-        command.setCreateddate(LocalDateTime.now());
+        command.setCreateddate(DateCommon.getDateTimeCurrent());
         command.setActivestatus(NumberUtils.ONE);
         commandGateway.sendAndWait(command);
         ResponseCRUDCommon response = ResponseCRUDCommon.builder().message(MessageCommon.Category.CREATE_SUCCESSFUL).errorStatus(false).build();
@@ -45,7 +44,7 @@ public class CategoryCommandServiceImpl implements CategoryCommandService {
         UpdateCategoryCommand command = new UpdateCategoryCommand();
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
-        command.setLastmodified(LocalDateTime.now());
+        command.setLastmodified(DateCommon.getDateTimeCurrent());
         commandGateway.sendAndWait(command);
         ResponseCRUDCommon response = ResponseCRUDCommon.builder().message(MessageCommon.Category.CREATE_SUCCESSFUL).errorStatus(false).build();
         return new ResponseEntity<>(response, HttpStatus.OK);

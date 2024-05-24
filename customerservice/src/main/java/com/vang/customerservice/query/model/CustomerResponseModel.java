@@ -1,10 +1,8 @@
 package com.vang.customerservice.query.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 public class CustomerResponseModel implements Serializable {
@@ -15,13 +13,14 @@ public class CustomerResponseModel implements Serializable {
     private String username;
     private String email;
     private String confirmcode;
-    private Date confirmcodeexpiration;
+    private String confirmcodeexpiration;
     private String phone;
     private String password;
     private String role;
-    private Date createddate;
-    private Date dateofbirth;
-    private Integer activestatus;
+    private String createddate;
+    private String lastmodified;
+    private String dateofbirth;
+    private int activestatus;
     private String avatar;
     private boolean dataStatus = true;
     public void initDefaultValue() {
@@ -36,6 +35,7 @@ public class CustomerResponseModel implements Serializable {
         password = "";
         role = "";
         createddate = null;
+        lastmodified = null;
         dateofbirth = null;
         activestatus = 0;
         avatar = "";

@@ -8,6 +8,10 @@ service UploadImage {
   rpc upload(UploadRequest) returns (UploadReply);
 }
 
+service UploadMultiImage {
+  rpc upload(UploadMultiImageRequest) returns (UploadMultiImageReply);
+}
+
 service DeleteImage {
   rpc delete(DeleteImageRequest) returns (DeleteImageReply);
 }
@@ -29,4 +33,14 @@ message UploadRequest {
 message UploadReply {
   string imageUrl = 1;
   bool status = 2;
+}
+
+message UploadMultiImageRequest {
+  int32 type = 1;
+  string imageName = 2;
+  string jsonRequest = 3;
+}
+
+message UploadMultiImageReply {
+  string jsonResponse = 1;
 }

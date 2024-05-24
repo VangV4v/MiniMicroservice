@@ -1,8 +1,38 @@
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: brand-service
-#          uri: http://localhost:9001
-#        - predicates:
-#            - Path = /api/v1/brands/**
+spring:
+  application:
+           name: apigateway
+  cloud:
+    gateway:
+      routes:
+        #Service
+        - id: brand-service
+          uri: http://192.168.160.1:9001
+          predicates:
+            - Path=/api/v1/brands/**
+        - id: customer-service
+          uri: http://192.168.160.1:9002
+          predicates:
+            - Path=/api/v1/customers/**
+        - id: admin-service
+          uri: http://192.168.160.1:9003
+          predicates:
+            - Path=/api/v1/admins/**
+        - id: category-service
+          uri: http://192.168.160.1:9006
+          predicates:
+            - Path=/api/v1/categories/**
+        - id: seller-service
+          uri: http://192.168.160.1:9007
+          predicates:
+            - Path=/api/v1/sellers/**
+        #Auth
+        - id: auth-seller
+          uri: http://192.168.160.1:8003
+          predicates:
+            - Path=/api/v1/auth/seller/
+        - id: auth-admin
+          uri: http://192.168.160.1:8002
+          predicates:
+            - Path=/api/v1/auth/admin/
+server:
+  port: 9000
