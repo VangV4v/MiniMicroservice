@@ -25,6 +25,10 @@ spring:
           uri: http://192.168.160.1:9007
           predicates:
             - Path=/api/v1/sellers/**
+        - id: product-service
+          uri: http://192.168.160.1:9008
+          predicates:
+            - Path=/api/v1/products/**
         #Auth
         - id: auth-seller
           uri: http://192.168.160.1:8003

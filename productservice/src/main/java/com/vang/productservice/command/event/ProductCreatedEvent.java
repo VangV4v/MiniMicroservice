@@ -13,6 +13,8 @@ public class ProductCreatedEvent {
     private String branddetail;
     private String categoryid;
     private String categorydetail;
+    private String sellerid;
+    private String sellerdetail;
     private String productname;
     private String description;
     private BigDecimal price;

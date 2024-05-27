@@ -28,6 +28,10 @@ public class Products {
     private String productname;
     @Column(name = "description")
     private String description;
+    @Column(name = "sellerid")
+    private String sellerid;
+    @Column(name = "sellerdetail")
+    private String sellerdetail;
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "quantity")

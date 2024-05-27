@@ -8,5 +8,7 @@ public class GrpcCommon {
         public static final int IMAGE_SERVER_PORT = 5009;
         public static final int CATEGORY_SERVER_PORT = 6009;
         public static final int BRAND_SERVER_PORT = 1009;
+        public static final int AUTH_SELLER_SERVER_PORT = 3008;
+        public static final int SELLER_SERVER_PORT = 7009;
     }
 }

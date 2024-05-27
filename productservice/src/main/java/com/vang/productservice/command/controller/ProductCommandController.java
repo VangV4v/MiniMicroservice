@@ -1,13 +1,11 @@
 package com.vang.productservice.command.controller;
 
 import com.vang.productservice.command.model.ProductRequestModel;
+import com.vang.productservice.command.model.UpdateProductRequestModel;
 import com.vang.productservice.command.service.ProductCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.vang.minimicroservice.common.ResponseCRUDCommon;
 
 @RestController
@@ -25,5 +23,15 @@ public class ProductCommandController {
     public ResponseEntity<ResponseCRUDCommon> addProduct(@ModelAttribute ProductRequestModel model) {
 
         return productCommandService.addProduct(model);
+    }
+
+    @PutMapping
+    public ResponseEntity<ResponseCRUDCommon> updateProduct(@ModelAttribute UpdateProductRequestModel model) {
+        return productCommandService.updateProduct(model);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseCRUDCommon> deleteProduct(@PathVariable("id") String id) {
+        return productCommandService.deleteProduct(id);
     }
 }

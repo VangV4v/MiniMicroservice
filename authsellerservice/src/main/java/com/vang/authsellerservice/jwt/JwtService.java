@@ -31,7 +31,7 @@ public class JwtService {
                         .builder()
                         .subject(username)
                         .claims(claims)
-                        .expiration(new Date(System.currentTimeMillis() * 120000))
+                        .expiration(new Date(System.currentTimeMillis() + (60000 * 20)))
                         .signWith(getKey())
                         .compact();
     }

@@ -17,6 +17,9 @@ import org.vang.minimicroservice.common.MessageCommon;
 import org.vang.minimicroservice.service.FieldNameCommon;
 import org.vang.minimicroservice.service.ServiceCommon;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class AuthenticateServiceImpl implements AuthenticateService {
 
@@ -37,6 +40,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
             if(authentication.isAuthenticated()) {
                 redisTemplate.opsForValue().set(FieldNameCommon.USERNAME, model.getUsername());
+                redisTemplate.opsForValue().set("usernameExpiration", String.valueOf(System.currentTimeMillis() + (60000 * 20)));
                 return new ResponseEntity<>(jwtService.generateToken(model.getUsername()), HttpStatus.OK);
             }
         } catch (BadCredentialsException e) {

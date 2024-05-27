@@ -9,7 +9,7 @@ import java.io.Serializable;
 @ToString
 public class ProductImageJsonModel implements Serializable {
 
-    private String defaultImage;
+    private String defaultimage;
     private byte[] defaultImageByte;
     private String image1;
     private byte[] image1Byte;

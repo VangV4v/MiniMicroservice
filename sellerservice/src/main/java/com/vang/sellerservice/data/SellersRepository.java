@@ -29,4 +29,7 @@ public interface SellersRepository extends JpaRepository<Sellers, String> {
     @Query(value = "select s.password from sellers s where s.username = ?1 or s.email = ?1 or s.phone = ?1 and activestatus = 1", nativeQuery = true)
     String getPasswordByUsername(String username);
 
+    @Query(value = "select s.sellerid,s.firstname,s.lastname,s.username,s.email,s.confirmcode,s.confirmcodeexpiration,s.phone,s.password,s.role,s.createddate,s.lastmodified,s.dateofbirth,s.activestatus,s.avatar,s.shopname,s.shopnameexpiration from sellers s where s.username = ?1 and s.activestatus = 1", nativeQuery = true)
+    Sellers findByUsername(String username);
+
 }

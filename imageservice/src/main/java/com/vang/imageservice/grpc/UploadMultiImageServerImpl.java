@@ -36,7 +36,7 @@ public class UploadMultiImageServerImpl extends UploadMultiImageGrpc.UploadMulti
         String jsonRequest = request.getJsonRequest();
         ProductImageJsonModel model = gson.fromJson(jsonRequest, ProductImageJsonModel.class);
         if(!ObjectUtils.isEmpty(model.getDefaultImageByte())) {
-            model.setDefaultImage(uploadImage(model.getDefaultImageByte(), request.getImageName()));
+            model.setDefaultimage(uploadImage(model.getDefaultImageByte(), request.getImageName()));
         }
         if(!ObjectUtils.isEmpty(model.getImage1Byte())) {
             model.setImage1(uploadImage(model.getImage1Byte(), request.getImageName()));

@@ -14,6 +14,8 @@ public class ProductResponseModel implements Serializable {
     private BrandJsonModel branddetail;
     private String categoryid;
     private CategoryJsonModel categorydetail;
+    private String sellerid;
+    private String sellerdetail;
     private String productname;
     private String description;
     private BigDecimal price;

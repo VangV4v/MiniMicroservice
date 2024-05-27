@@ -1,0 +1,19 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_package = "com.vang.productservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "GetAuthSellerClient";
+
+service GetAuthSellerInfo {
+  rpc getInfo(GetAuthSellerInfoRequest) returns (GetAuthSellerInfoReply);
+}
+
+message GetAuthSellerInfoRequest {
+  int32 type = 1;
+}
+
+message GetAuthSellerInfoReply {
+  bool status = 1;
+  string username = 2;
+  string role = 3;
+}
