@@ -10,5 +10,8 @@ public class GrpcCommon {
         public static final int BRAND_SERVER_PORT = 1009;
         public static final int AUTH_SELLER_SERVER_PORT = 3008;
         public static final int SELLER_SERVER_PORT = 7009;
+        public static final int AUTH_CUSTOMER_SERVER_PORT = 1008;
+        public static final int CUSTOMER_SERVER_PORT = 2009;
+        public static final int PRODUCT_SERVER_PORT = 8009;
     }
 }

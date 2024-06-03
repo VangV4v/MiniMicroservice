@@ -26,4 +26,16 @@ public class MessageCommon {
        public static final String UPDATE_SUCCESSFUL = "Seller updated successfully";
        public static final String DELETE_SUCCESSFUL = "Seller deleted successfully";
     }
+
+    public static class Product {
+        public static final String CREATE_SUCCESSFUL = "Product created successfully";
+        public static final String UPDATE_SUCCESSFUL = "Product updated successfully";
+        public static final String DELETE_SUCCESSFUL = "Product deleted successfully";
+    }
+
+    public static class Cart {
+        public static final String CREATE_SUCCESSFUL = "Add product to cart successfully";
+        public static final String DELETE_SUCCESSFUL = "Remove product to cart successfully";
+        public static final String DELETE_ALL_SUCCESSFUL = "Remove all products to cart successfully";
+    }
 }

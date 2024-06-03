@@ -22,9 +22,14 @@ public class ProductQueryController {
         this.productQueryService = productQueryService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<ProductResponseModel> getProductById(@PathVariable("id") String productId) {
         return productQueryService.getProductById(productId);
+    }
+
+    @GetMapping("seller/{sellerId}")
+    public ResponseEntity<List<ProductResponseModel>> getProductBySeller(@PathVariable("sellerId") String sellerId) {
+        return productQueryService.getProductBySeller(sellerId);
     }
 
     @GetMapping

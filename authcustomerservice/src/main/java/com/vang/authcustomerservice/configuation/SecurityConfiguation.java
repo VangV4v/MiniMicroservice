@@ -36,7 +36,7 @@ public class SecurityConfiguation {
         http.csrf(CsrfConfigurer::disable);
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/customer")).permitAll();
+            auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v1/auth/customer/")).permitAll();
         });
         http.authenticationProvider(authenticationProvider());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

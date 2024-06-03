@@ -1,0 +1,17 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_package = "com.vang.cartservice.command.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "ProductClientGrpc";
+
+service GetProductById {
+  rpc getData(GetProductByIdRequest) returns (GetProductByIdReply);
+}
+
+message GetProductByIdRequest {
+  string productId = 1;
+}
+
+message GetProductByIdReply {
+  string jsonResponse = 1;
+}

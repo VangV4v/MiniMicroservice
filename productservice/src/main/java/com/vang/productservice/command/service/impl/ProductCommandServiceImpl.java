@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.vang.minimicroservice.common.DateCommon;
+import org.vang.minimicroservice.common.MessageCommon;
 import org.vang.minimicroservice.common.NumberUtils;
 import org.vang.minimicroservice.common.ResponseCRUDCommon;
 import org.vang.minimicroservice.method.MethodCommon;
@@ -111,7 +112,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message("Create product").build();
+        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message(MessageCommon.Product.CREATE_SUCCESSFUL).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -178,7 +179,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message("Update product successfully").build();
+        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message(MessageCommon.Product.UPDATE_SUCCESSFUL).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -189,7 +190,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setProductid(productId);
         commandGateway.sendAndWait(command);
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message("Delete product successfully").build();
+        ResponseCRUDCommon response = ResponseCRUDCommon.builder().message(MessageCommon.Product.DELETE_SUCCESSFUL).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

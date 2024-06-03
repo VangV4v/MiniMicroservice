@@ -8,6 +8,19 @@ service CustomerService {
   rpc login(LoginRequest) returns (LoginReply);
 }
 
+service GetCustomerID {
+  rpc getInfo(GetCustomerIDRequest) returns (GetCustomerIDReply);
+}
+
+message GetCustomerIDRequest {
+  string username = 1;
+}
+
+message GetCustomerIDReply {
+  bool status = 1;
+  string response = 2;
+}
+
 message LoginRequest {
   string username = 1;
 }

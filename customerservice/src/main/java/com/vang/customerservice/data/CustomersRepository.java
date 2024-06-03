@@ -9,6 +9,9 @@ public interface CustomersRepository extends JpaRepository<Customers, String> {
     @Query(value = "call authCustomer(?1)", nativeQuery = true)
     Customers findByLoginType(String typeLogin);
 
+    @Query(value = "select cus.password from customers cus where cus.username = ?1 and activestatus = 1", nativeQuery = true)
+    String getPasswordByUsername(String username);
+
     @Query(value = "select count(username) from customers where username = ?1 and activestatus = 1", nativeQuery = true)
     long countByUsername(String username);
 
@@ -26,5 +29,8 @@ public interface CustomersRepository extends JpaRepository<Customers, String> {
 
     @Query(value = "select count(cus.phone) from customers cus where cus.phone = ?1 and phone != ?2 and activestatus = 1",nativeQuery = true)
     long countByPhoneForUpdate(String newPhone, String oldPhone);
+
+    @Query(value = "select cus.customerid from customers cus where cus.username = ?1 and activestatus = 1", nativeQuery = true)
+    String getCustomerIdByUsername(String username);
 
 }

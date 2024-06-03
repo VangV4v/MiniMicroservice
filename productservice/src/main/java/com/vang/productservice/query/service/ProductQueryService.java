@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProductQueryService {
 
     ResponseEntity<ProductResponseModel> getProductById(String productId);
+    ResponseEntity<List<ProductResponseModel>> getProductBySeller(String sellerId);
 
     ResponseEntity<List<ProductResponseModel>> getAllProducts();
 }

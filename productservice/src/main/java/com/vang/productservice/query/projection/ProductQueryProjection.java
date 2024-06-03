@@ -6,6 +6,7 @@ import com.vang.productservice.command.grpcmodel.CategoryJsonModel;
 import com.vang.productservice.data.Products;
 import com.vang.productservice.data.ProductsRepository;
 import com.vang.productservice.query.model.ProductResponseModel;
+import com.vang.productservice.query.queries.GetAllBySellerId;
 import com.vang.productservice.query.queries.GetAllProducts;
 import com.vang.productservice.query.queries.GetProductById;
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +44,23 @@ public class ProductQueryProjection {
             model.setCategorydetail(categoryJsonModel);
         }
         return model;
+    }
+
+    @QueryHandler
+    public List<ProductResponseModel> getProductBySeller(GetAllBySellerId allBySellerId) {
+
+        List<Products> products = productsRepository.getAllBySellerId(allBySellerId.getSellerid());
+        List<ProductResponseModel> productResponseModels = new ArrayList<ProductResponseModel>();
+        products.forEach(e -> {
+            ProductResponseModel model = new ProductResponseModel();
+            BeanUtils.copyProperties(e, model);
+            BrandJsonModel brandJsonModel = gson.fromJson(e.getBranddetail(), BrandJsonModel.class);
+            CategoryJsonModel categoryJsonModel = gson.fromJson(e.getCategorydetail(), CategoryJsonModel.class);
+            model.setBranddetail(brandJsonModel);
+            model.setCategorydetail(categoryJsonModel);
+            productResponseModels.add(model);
+        });
+        return productResponseModels;
     }
 
     @QueryHandler
