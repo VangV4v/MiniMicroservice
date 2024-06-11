@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CartQueryService {
 
-    ResponseEntity<List<CartResponseModel>> getAllByCustomer();
+    ResponseEntity<Object> getAllByCustomer();
 }

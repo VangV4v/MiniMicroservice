@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_multiple_files = true;
+option java_package = "com.vang.addressservice.command.grpc.gen";
+option java_outer_classname = "AddressGrpcServer";
+
+service GetAddressById {
+    rpc getData(GetAddressByIdRequest) returns (GetAddressByIdReply);
+}
+
+message GetAddressByIdRequest {
+    string addressId = 1;
+}
+
+message GetAddressByIdReply {
+    bool status = 1;
+    string response = 2;
+}

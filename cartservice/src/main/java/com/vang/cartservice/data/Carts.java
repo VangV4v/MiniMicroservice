@@ -18,14 +18,8 @@ public class Carts {
     private String customerid;
     @Column(name = "productid")
     private String productid;
-    @Column(name = "productdetail")
+    @Column(name = "productdetail", length = 2000)
     private String productdetail;
     @Column(name = "quantity")
     private int quantity;
 }
-
-//private String cartid;
-//private String customerid;
-//private String productid;
-//private String productdetail;
-//private int quantity;

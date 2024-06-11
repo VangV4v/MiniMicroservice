@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_multiple_files = true;
+option java_package = "com.vang.orderservice.gen";
+option java_outer_classname = "CustomerGrpcClient";
+
+service GetCustomerByUsername {
+    rpc getData(GetCustomerByUsernameRequest) returns (GetCustomerByUsernameReply);
+}
+
+message GetCustomerByUsernameRequest {
+    string username = 1;
+}
+
+message GetCustomerByUsernameReply {
+    bool status = 1;
+    string response = 2;
+}

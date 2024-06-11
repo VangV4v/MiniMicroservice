@@ -1,0 +1,17 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_package = "com.vang.confirmorderservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "SellerGrpcClient";
+
+service GetSellerByUsername {
+  rpc getData(GetSellerByUsernameRequest) returns (GetSellerByUsernameReply);
+}
+
+message GetSellerByUsernameRequest {
+  string username = 1;
+}
+
+message GetSellerByUsernameReply {
+  string jsonResponse = 1;
+}

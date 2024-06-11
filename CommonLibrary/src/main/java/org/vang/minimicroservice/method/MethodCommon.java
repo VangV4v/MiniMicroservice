@@ -5,12 +5,20 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MethodCommon {
 
     public static Long generateAggregateIdentifier() {
 
         return System.currentTimeMillis() * 10;
+    }
+
+    public static Set<String> unauthorized() {
+        Set<String> errors = new HashSet<>();
+        errors.add("UNAUTHORIZED");
+        return errors;
     }
 
     public static int getIndexById(String id) {

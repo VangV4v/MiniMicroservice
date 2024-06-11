@@ -30,11 +30,10 @@ public class GetAuthSellerServerImpl extends GetAuthSellerInfoGrpc.GetAuthSeller
     public void getInfo(GetAuthSellerInfoRequest request, StreamObserver<GetAuthSellerInfoReply> responseObserver) {
 
         GetAuthSellerInfoReply reply;
-        String username = redisTemplate.opsForValue().get(FieldNameCommon.USERNAME);
-        Date usernameExpiration = new Date(Long.parseLong(redisTemplate.opsForValue().get("usernameExpiration")));
-        UserDetails userDetails = userdetailsService.loadUserByUsername(username);
-        if(!ObjectUtils.isEmpty(userDetails) && new Date().before(usernameExpiration)) {
-            reply = GetAuthSellerInfoReply.newBuilder().setRole(userDetails.getAuthorities().stream().toList().get(0).toString()).setUsername(userDetails.getUsername()).setStatus(true).build();
+        String username = redisTemplate.opsForValue().get(FieldNameCommon.USERNAME_SELLER);
+        Date usernameExpiration = redisTemplate.opsForValue().get(FieldNameCommon.USERNAME_SELLER_EXPIRATION) != null ? new Date(Long.parseLong(redisTemplate.opsForValue().get(FieldNameCommon.USERNAME_SELLER_EXPIRATION))) : new Date();
+        if(!ObjectUtils.isEmpty(username) && new Date().before(usernameExpiration)) {
+            reply = GetAuthSellerInfoReply.newBuilder().setUsername(username).setStatus(true).build();
         } else {
             reply = GetAuthSellerInfoReply.newBuilder().setStatus(false).build();
         }

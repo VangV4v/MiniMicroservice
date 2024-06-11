@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 
+import java.util.List;
+
 public interface CustomersRepository extends JpaRepository<Customers, String> {
 
     @Query(value = "call authCustomer(?1)", nativeQuery = true)
@@ -33,4 +35,6 @@ public interface CustomersRepository extends JpaRepository<Customers, String> {
     @Query(value = "select cus.customerid from customers cus where cus.username = ?1 and activestatus = 1", nativeQuery = true)
     String getCustomerIdByUsername(String username);
 
+    @Query(value = "call findByUsername(?1)", nativeQuery = true)
+    Customers findByUsername(String username);
 }

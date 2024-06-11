@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang.grpc;
+option java_multiple_files = true;
+option java_package = "com.vang.addressservice.command.grpc.gen";
+option java_outer_classname = "CustomerGrpcClient";
+
+service GetCustomerID {
+  rpc getInfo(GetCustomerIDRequest) returns (GetCustomerIDReply);
+}
+
+message GetCustomerIDRequest {
+  string username = 1;
+}
+
+message GetCustomerIDReply {
+  bool status = 1;
+  string response = 2;
+}

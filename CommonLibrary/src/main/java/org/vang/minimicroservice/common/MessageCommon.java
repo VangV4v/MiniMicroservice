@@ -8,6 +8,7 @@ public class MessageCommon {
     public static String ERROR_004 = "Please send request with hdnOldEmail";
     public static String ERROR_005 = "Please send request with hdnOldPhone";
     public static String ERROR_006 = "Expiration has at least 30 days";
+    public static String NO_RESULT = "No Result";
 
    public static class Admin {
         public static final String CREATE_SUCCESSFUL = "Admin created successfully";
@@ -37,5 +38,11 @@ public class MessageCommon {
         public static final String CREATE_SUCCESSFUL = "Add product to cart successfully";
         public static final String DELETE_SUCCESSFUL = "Remove product to cart successfully";
         public static final String DELETE_ALL_SUCCESSFUL = "Remove all products to cart successfully";
+    }
+
+    public static class Address {
+        public static final String CREATE_SUCCESSFUL = "Add address successfully";
+        public static final String UPDATE_SUCCESSFUL = "Change your address successfully";
+        public static final String DELETE_SUCCESSFUL = "Delete address successfully";
     }
 }

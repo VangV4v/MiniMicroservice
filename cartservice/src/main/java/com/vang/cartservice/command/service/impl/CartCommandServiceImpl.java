@@ -13,6 +13,7 @@ import com.vang.cartservice.command.model.CartRequestModel;
 import com.vang.cartservice.command.service.CartCommandService;
 import com.vang.cartservice.data.Carts;
 import com.vang.cartservice.data.CartsRepository;
+import org.apache.commons.lang.StringUtils;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,20 @@ public class CartCommandServiceImpl implements CartCommandService {
 
         Gson gson = new Gson();
         String getInfoAuth = getAuthCustomerClient.getAuthInfomation();
-        String customerId = getCustomerIdByUsername.getCustomerId(getInfoAuth);
-        String productDetail = getProductByIdClient.getProductById(model.getProductid());
-        int quantity = model.getQuantity() == 0 ? 1 : model.getQuantity();
-        ProductJsonModel productJsonModel = gson.fromJson(productDetail, ProductJsonModel.class);
-        Carts checkExist = cartsRepository.findByCustomerAndProduct(customerId, productJsonModel.getProductid());
+        String customerId,productDetail;
+        ProductJsonModel productJsonModel;
+        Carts checkExist;
+        int quantity;
+        CreateCartCommand command = new CreateCartCommand();
+        if(StringUtils.isEmpty(getInfoAuth)) {
+            ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(MethodCommon.unauthorized()).build();
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+        customerId = getCustomerIdByUsername.getCustomerId(getInfoAuth);
+        productDetail = getProductByIdClient.getProductById(model.getProductid());
+        quantity = model.getQuantity() == 0 ? 1 : model.getQuantity();
+        productJsonModel = gson.fromJson(productDetail, ProductJsonModel.class);
+        checkExist = cartsRepository.findByCustomerAndProduct(customerId, productJsonModel.getProductid());
         if(!ObjectUtils.isEmpty(checkExist)) {
             model.setCartid(checkExist.getCartid());
             model.setQuantity(model.getQuantity() + checkExist.getQuantity());
@@ -61,7 +71,6 @@ public class CartCommandServiceImpl implements CartCommandService {
             model.setProductdetail(productDetail);
             return updateCart(model);
         }
-        CreateCartCommand command = new CreateCartCommand();
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setCustomerid(customerId);
@@ -75,32 +84,50 @@ public class CartCommandServiceImpl implements CartCommandService {
 
     @Override
     public ResponseEntity<ResponseCRUDCommon> updateCart(CartRequestModel model) {
+        String getInfoAuth = getAuthCustomerClient.getAuthInfomation();
         UpdateCartCommand command = new UpdateCartCommand();
+        ResponseCRUDCommon response;
+        if(StringUtils.isEmpty(getInfoAuth)) {
+            response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(MethodCommon.unauthorized()).build();
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
         BeanUtils.copyProperties(model, command);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.CREATE_SUCCESSFUL).build();
+        response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.CREATE_SUCCESSFUL).build();
         commandGateway.sendAndWait(command);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseCRUDCommon> deleteItem(String cartId) {
+        String getInfoAuth = getAuthCustomerClient.getAuthInfomation();
+        ResponseCRUDCommon response;
         DeleteCartCommand command = new DeleteCartCommand();
+        if(StringUtils.isEmpty(getInfoAuth)) {
+            response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(MethodCommon.unauthorized()).build();
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setCartid(cartId);
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.DELETE_SUCCESSFUL).build();
+        response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.DELETE_SUCCESSFUL).build();
         commandGateway.sendAndWait(command);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ResponseCRUDCommon> deleteAll() {
-        DeleteAllCartCommand command = new DeleteAllCartCommand();
         String getInfoAuth = getAuthCustomerClient.getAuthInfomation();
-        String customerId = getCustomerIdByUsername.getCustomerId(getInfoAuth);
+        DeleteAllCartCommand command = new DeleteAllCartCommand();
+        String customerId;
+        ResponseCRUDCommon response;
+        if(StringUtils.isEmpty(getInfoAuth)) {
+            response = ResponseCRUDCommon.builder().errorStatus(true).errorMessage(MethodCommon.unauthorized()).build();
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
+        customerId = getCustomerIdByUsername.getCustomerId(getInfoAuth);
         command.setAutoAggregateIdentifier(MethodCommon.generateAggregateIdentifier());
         command.setCustomerid(customerId);
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.DELETE_ALL_SUCCESSFUL).build();
+        response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.Cart.DELETE_ALL_SUCCESSFUL).build();
         commandGateway.sendAndWait(command);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.vang.minimicroservice.message.MessageCode;
 import org.vang.minimicroservice.message.MessageCommon;
+import org.vang.minimicroservice.service.FieldNameCommon;
 import org.vang.minimicroservice.service.ServiceCommon;
 
 import java.security.Principal;
@@ -39,8 +40,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(model.getUsername(), model.getPassword()));
             if(authentication.isAuthenticated()) {
-                    redisTemplate.opsForValue().set("username",model.getUsername());
-                redisTemplate.opsForValue().set("usernameExpiration", System.currentTimeMillis()+(60000 * 20)+"");
+                redisTemplate.opsForValue().set(FieldNameCommon.USERNAME_CUSTOMER,model.getUsername());
+                redisTemplate.opsForValue().set(FieldNameCommon.USERNAME_CUSTOMER_EXPIRATION, System.currentTimeMillis()+(60000 * 20)+"");
                 return new ResponseEntity<>(jwtService.generateToken(model.getUsername()), HttpStatus.OK);
             }
         }catch (BadCredentialsException badCredentialsException) {

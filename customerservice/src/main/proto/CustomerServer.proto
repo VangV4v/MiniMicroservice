@@ -12,6 +12,19 @@ service GetCustomerID {
   rpc getInfo(GetCustomerIDRequest) returns (GetCustomerIDReply);
 }
 
+service GetCustomerByUsername {
+    rpc getData(GetCustomerByUsernameRequest) returns (GetCustomerByUsernameReply);
+}
+
+message GetCustomerByUsernameRequest {
+    string username = 1;
+}
+
+message GetCustomerByUsernameReply {
+    bool status = 1;
+    string response = 2;
+}
+
 message GetCustomerIDRequest {
   string username = 1;
 }

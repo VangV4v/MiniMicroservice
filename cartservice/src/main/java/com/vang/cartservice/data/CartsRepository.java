@@ -20,4 +20,7 @@ public interface CartsRepository extends JpaRepository<Carts, String> {
 
     @Query(value = "select c.cartid,c.customerid,c.productid,c.productdetail,c.quantity from carts c where c.customerid = ?1", nativeQuery = true)
     List<Carts> findAllByCustomerId(String customerId);
+
+    @Query(value = "select c.cartid,c.customerid,c.productid,c.productdetail,c.quantity from carts c where c.cartid in (?1)", nativeQuery = true)
+    List<Carts> findAllByCartId(List<String> cartId);
 }
