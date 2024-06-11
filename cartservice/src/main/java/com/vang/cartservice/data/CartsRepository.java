@@ -3,9 +3,11 @@ package com.vang.cartservice.data;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CartsRepository extends JpaRepository<Carts, String> {
 
     @Query(value = "select c.cartid from carts c order by c.cartid desc limit 1", nativeQuery = true)

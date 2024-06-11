@@ -1,16 +1,12 @@
 package com.vang.cartservice.command.grpc;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.vang.cartservice.command.grpc.gen.DeleteCartByIdGrpc;
-import com.vang.cartservice.command.grpc.gen.GetCartByIdReply;
-import com.vang.cartservice.command.grpc.gen.GetCartByIdRequest;
+import com.vang.cartservice.command.grpc.gen.*;
 import com.vang.cartservice.data.CartsRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @GrpcService
@@ -24,11 +20,12 @@ public class DeleteCartByIdServerImpl extends DeleteCartByIdGrpc.DeleteCartByIdI
     }
 
     @Override
-    public void delete(GetCartByIdRequest request, StreamObserver<GetCartByIdReply> responseObserver) {
+    public void delete(DeleteCartByIdRequest request, StreamObserver<DeleteCartByIdReply> responseObserver) {
 
-        String listCartIdRequest = request.getRequest();
-        Gson gson = new Gson();
-//        List<String> listString = gson.fromJson(listCartIdRequest, new TypeToken<ArrayList<String>>(){}.getClass());
-        super.delete(request, responseObserver);
+        String cartId = request.getCartId();
+        cartsRepository.deleteById(cartId);
+        DeleteCartByIdReply reply = DeleteCartByIdReply.newBuilder().setStatus(true).build();
+        responseObserver.onNext(reply);
     }
+
 }

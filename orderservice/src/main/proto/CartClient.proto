@@ -8,6 +8,10 @@ service GetCartById {
     rpc getData(GetCartByIdRequest) returns (GetCartByIdReply);
 }
 
+service DeleteCartById {
+    rpc delete(DeleteCartByIdRequest) returns (DeleteCartByIdReply);
+}
+
 message GetCartByIdRequest {
     int32 type = 1;
     string request = 2;
@@ -16,4 +20,12 @@ message GetCartByIdRequest {
 message GetCartByIdReply {
     bool status = 1;
     string response = 2;
+}
+
+message DeleteCartByIdRequest {
+    string cartId = 1;
+}
+
+message DeleteCartByIdReply {
+    bool status = 1;
 }

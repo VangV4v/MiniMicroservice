@@ -38,16 +38,18 @@ public class OrderServiceImpl implements OrderService {
     private final GetProductByIdClientImpl getProductByIdClient;
     private final OrdersRepository ordersRepository;
     private final GetAddressByIdClientImpl getAddressByIdClient;
+    private final DeleteCartByIdClientImpl deleteCartByIdClient;
     private final Gson gson = new Gson();
 
     @Autowired
-    public OrderServiceImpl(GetCartByIdClientImpl getCartByIdClient, GetAuthCustomerClientImpl getAuthCustomerClient, GetCustomerByUsernameClientImpl getCustomerByUsernameClient, GetProductByIdClientImpl getProductByIdClient, OrdersRepository ordersRepository, GetAddressByIdClientImpl getAddressByIdClient) {
+    public OrderServiceImpl(GetCartByIdClientImpl getCartByIdClient, GetAuthCustomerClientImpl getAuthCustomerClient, GetCustomerByUsernameClientImpl getCustomerByUsernameClient, GetProductByIdClientImpl getProductByIdClient, OrdersRepository ordersRepository, GetAddressByIdClientImpl getAddressByIdClient, DeleteCartByIdClientImpl deleteCartByIdClient) {
         this.getCartById = getCartByIdClient;
         this.getAuthCustomerClient = getAuthCustomerClient;
         this.getCustomerByUsernameClient = getCustomerByUsernameClient;
         this.getProductByIdClient = getProductByIdClient;
         this.ordersRepository = ordersRepository;
         this.getAddressByIdClient = getAddressByIdClient;
+        this.deleteCartByIdClient = deleteCartByIdClient;
     }
 
     @Override
@@ -68,12 +70,14 @@ public class OrderServiceImpl implements OrderService {
         if(!StringUtils.isEmpty(model.getCartId())) {
 
             saveData(model.getCartId(), username, customerJsonModel.getCustomerid(), responseCustomer, addressJsonModel, model.getNote());
+            deleteCartByIdClient.deleteByCartId(model.getCartId());
         } else if(!ObjectUtils.isEmpty(model.getListCartId()) || !model.getListCartId().isEmpty()) {
 
             String response = getCartById.getListCartData(model.getListCartId());
             List<CartJsonModel> listJsonModels = gson.fromJson(response, new TypeToken<List<CartJsonModel>>(){}.getType());
             listJsonModels.forEach(e -> {
                 saveData(e.getCartid(), username, customerJsonModel.getCustomerid(), responseCustomer, addressJsonModel, model.getNote());
+                deleteCartByIdClient.deleteByCartId(e.getCartid());
             });
         }
         ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(true).build();

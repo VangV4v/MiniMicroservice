@@ -9,7 +9,7 @@ service GetCartById {
 }
 
 service DeleteCartById {
-    rpc delete(GetCartByIdRequest) returns (GetCartByIdReply);
+    rpc delete(DeleteCartByIdRequest) returns (DeleteCartByIdReply);
 }
 
 message GetCartByIdRequest {
@@ -27,5 +27,5 @@ message DeleteCartByIdRequest {
 }
 
 message DeleteCartByIdReply {
-    string status = 1;
+    bool status = 1;
 }

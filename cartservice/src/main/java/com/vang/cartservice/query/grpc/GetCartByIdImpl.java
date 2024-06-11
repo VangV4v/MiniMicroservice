@@ -1,6 +1,7 @@
 package com.vang.cartservice.query.grpc;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vang.cartservice.command.grpc.gen.GetCartByIdGrpc;
 import com.vang.cartservice.command.grpc.gen.GetCartByIdReply;
 import com.vang.cartservice.command.grpc.gen.GetCartByIdRequest;
@@ -36,7 +37,7 @@ public class GetCartByIdImpl extends GetCartByIdGrpc.GetCartByIdImplBase {
             String response = gson.toJson(cartJsonModel);
             reply = GetCartByIdReply.newBuilder().setResponse(response).setStatus(true).build();
         } else {
-            var listCartId = gson.fromJson(request.getRequest(), ArrayList.class);
+            List<String> listCartId = gson.fromJson(request.getRequest(), new TypeToken<List<String>>(){}.getType());
             List<Carts> listCarts = cartsRepository.findAllByCartId(listCartId);
             List<CartJsonModel> listModels = new ArrayList<>();
             listCarts.forEach(e -> {

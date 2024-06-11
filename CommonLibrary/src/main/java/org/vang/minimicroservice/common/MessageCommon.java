@@ -9,6 +9,7 @@ public class MessageCommon {
     public static String ERROR_005 = "Please send request with hdnOldPhone";
     public static String ERROR_006 = "Expiration has at least 30 days";
     public static String NO_RESULT = "No Result";
+    public static String SUCCESS = "Successfully";
 
    public static class Admin {
         public static final String CREATE_SUCCESSFUL = "Admin created successfully";

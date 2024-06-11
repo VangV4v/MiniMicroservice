@@ -121,7 +121,7 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
         orders = ordersRepository.findByIdAndSellerId(orderId, sellerJsonModel.getSellerid());
         orders.setConfirmstatus(NumberUtils.ONE);
         ordersRepository.save(orders);
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message("Success").build();
+        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -134,7 +134,7 @@ public class ConfirmOrderServiceImpl implements ConfirmOrderService {
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
         ordersRepository.deleteById(orderId);
-        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message("Success").build();
+        ResponseCRUDCommon response = ResponseCRUDCommon.builder().errorStatus(false).message(MessageCommon.SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -45,4 +45,11 @@ public class GrpcConfiguation {
         return GetAddressByIdGrpc.newBlockingStub(channel);
     }
 
+    @Bean
+    public DeleteCartByIdGrpc.DeleteCartByIdBlockingStub deleteCartByIdBlockingStub() {
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(GrpcCommon.IP_HOST, GrpcCommon.PortCommon.CART_SERVER_PORT).usePlaintext().build();
+        return DeleteCartByIdGrpc.newBlockingStub(channel);
+    }
+
 }
